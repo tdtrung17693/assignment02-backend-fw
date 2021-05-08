@@ -1,0 +1,20 @@
+.news_image {
+    height: 100%;
+    width: 100%;
+}
+
+.news_image:hover {
+    opacity: 0.7;
+}
+
+.news_link:hover {
+    text-decoration: none;
+}
+
+.top_news_title {
+    font-size: 2em;
+}
+
+.news_title {
+    font-size: 1.5em;
+}

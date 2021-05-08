@@ -6,6 +6,7 @@ return [
     // Database config
     'DB_HOST' => 'mysql',
     'DB_NAME' => 'assignment',
-    'DB_USER' => 'root',
-    'DB_PASS' => 'assignment'
+    'DB_PORT' => 3306,
+    'DB_USER' => 'admin',
+    'DB_PASS' => 'admin'
 ];

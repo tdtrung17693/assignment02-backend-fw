@@ -16,11 +16,12 @@ services:
     volumes:
       - ./:/app
   mysql:
-    image: mysql
+    image: mariadb
     command: --default-authentication-plugin=mysql_native_password
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: assignment
+      MYSQL_DATABASE: assignment
+      MYSQL_ROOT_PASSWORD: admin
       MYSQL_USER: admin
       MYSQL_PASSWORD: admin
     networks:

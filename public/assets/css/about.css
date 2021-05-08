@@ -1,0 +1,281 @@
+* {
+    box-sizing: border-box;
+}
+
+
+body {
+    background-color: #f1f1f1;
+    font-family: Arial, sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+#mainNav {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+#mainNav {
+    background-color: #212529;
+}
+
+/* Center website */
+
+.main {
+    max-width: 1000px;
+    margin: auto;
+}
+
+h1 {
+    font-size: 3vw;
+}
+
+h3 {
+    font-size: 2vw;
+}
+
+.row {
+}
+
+.row {
+    margin: auto;
+    width: 70%;
+}
+
+/* Add padding BETWEEN each column (if you want) */
+.row,
+.row > .column {
+}
+
+.row,
+.row > .column {
+    padding: 8px;
+}
+
+/* Create four equal columns that floats next to each other */
+.column {
+}
+
+.column {
+    float: left;
+    width: 25%;
+}
+
+/* Clear floats after rows */
+.row:after {
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Content */
+.content {
+    border-radius: 1vw;
+}
+
+.content {
+    background-color: white;
+    padding: 10px;
+    transition: transform .2s;
+}
+
+.content:hover {
+    background-color: #5c5e5f;
+    color: white;
+}
+
+.smile .image-fluid {
+    position: absolute;
+}
+
+.big-image {
+    margin: auto;
+    width: 30%;
+}
+
+.more-content {
+}
+
+.content:hover {
+    background-color: #5c5e5f;
+    color: white;
+}
+
+.smile .image-fluid {
+    position: absolute;
+}
+
+.big-image {
+    margin: auto;
+    width: 30%;
+}
+
+.more-content {
+    margin: auto;
+    width: 70%;
+    background-color: white;
+}
+
+.mySlides {
+    display: none;
+}
+
+img {
+    vertical-align: middle;
+}
+
+.mySlides {
+    display: none
+}
+
+img {
+    vertical-align: middle;
+}
+
+/* Slideshow container */
+.slideshow-container {
+    width: 80%;
+    position: relative;
+    margin: auto;
+}
+
+/* Hide the images by default */
+.mySlides {
+}
+
+.mySlides {
+    display: none;
+}
+
+
+.prev,
+.next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+}
+
+img {
+    vertical-align: middle;
+}
+
+/* Position the "next button" to the right */
+.next {
+}
+
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Caption text */
+.text {
+}
+
+.prev:hover,
+.next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.text {
+    color: #f2f2f2;
+    font-size: 2vw;
+    padding: 2vw 3vw;
+    position: absolute;
+    bottom: 2.5vw;
+    width: 100%;
+    text-align: center;
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+}
+
+.numbertext {
+    color: #f2f2f2;
+    font-size: 1.5vw;
+    padding: 2vw 3vw;
+    position: absolute;
+    top: 0;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+}
+
+.dot {
+    cursor: pointer;
+    height: 1.5vw;
+    width: 1.5vw;
+    margin: 0 0.5vw;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover {
+}
+
+.active,
+.dot:hover {
+    background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 1.5s;
+    animation-name: fade;
+    animation-duration: 1.5s;
+    animation: fade 2s 1 forwards;
+}
+
+@-webkit-keyframes fade {
+    from {
+        opacity: .4
+    }
+    to {
+        opacity: 1
+    }
+}
+
+@keyframes fade {
+    from {
+        opacity: .4
+    }
+    to {
+        opacity: 1
+    }
+}
+
+/* Responsive layout - makes a two column-layout instead of four columns */
+@media screen and (max-width: 900px) {
+}
+
+@media screen and (max-width: 900px) {
+    .column {
+        width: 50%;
+    }
+}
+
+/* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+}
+
+@media screen and (max-width: 600px) {
+    .column {
+        width: 100%;
+    }
+}
+
+

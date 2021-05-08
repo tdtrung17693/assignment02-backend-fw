@@ -20,6 +20,7 @@ class Application
     {
         $this->appConfig = require_once __DIR__ . "/config/app.php";
 
+        $this->configDatabase();
         $this->configRouting();
     }
 
@@ -38,6 +39,7 @@ class Application
         $dbConfig->databaseUser = config('DB_USER');
         $dbConfig->databasePassword = config('DB_PASS');
         $dbConfig->databaseName = config('DB_NAME');
+        $this->singleton[Database::class] = new Database($dbConfig);
     }
 
     function run()
@@ -69,7 +71,9 @@ class Application
     function resolveClass($className)
     {
         // Find the correspondance in the map first
-        if (array_key_exists($className, $this->resolveInterfaceMap)) {
+        if ($this->isSingleton($className)) {
+            return $this->singleton[$className];
+        } else if ($this->isRegisteredInterface($className)) {
             return $this->createInstance($this->resolveInterfaceMap[$className]);
         }
 
@@ -79,6 +83,16 @@ class Application
         } catch (Exception $exception) {
             throw $exception;
         }
+    }
+
+    protected function isSingleton($className)
+    {
+        return array_key_exists($className, $this->singleton);
+    }
+
+    protected function isRegisteredInterface($className)
+    {
+        return array_key_exists($className, $this->resolveInterfaceMap);
     }
 
     protected function createInstance($className)
@@ -103,7 +117,7 @@ class Application
                     try {
                         $argumentType = $parameter->getType();
                         
-                        $argument = $this->createInstance($argumentType->getName());
+                        $argument = $this->resolveClass($argumentType->getName());
                     } catch (ClassCannotBeInstantiatedException $exception) {
                         throw new ParameterCannotResolvedException($parameter->getName());
                     }

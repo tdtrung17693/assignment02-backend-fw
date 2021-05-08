@@ -20,7 +20,14 @@ class Route
         $this->matchingRegex = $this->combineRegex($urlPattern);
     }
 
-    function middleware(IMiddleware $middleware) {
+    /**
+     * @param $middleware  string | IMiddleware
+     */
+    function middleware($middleware) {
+        if (is_string($middleware)) {
+            $middleware = $this->container->resolveClass($middleware);
+        }
+
         array_push($this->middlewares, $middleware);
     }
 
@@ -42,7 +49,6 @@ class Route
 
         foreach ($actionParameters as $param) {
             $paramName = $param->getName();
-            echo $paramName;
 
             if (!$param->hasType() && !array_key_exists($paramName, $this->params)) {
                 throw new Exception("{$this->controller}::{$this->action}() missing parameter $paramName");

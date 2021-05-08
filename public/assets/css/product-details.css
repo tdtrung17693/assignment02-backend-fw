@@ -1,0 +1,99 @@
+.navbar {
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.product__thumbnails .xzoom {
+    width: 100%;
+    margin-bottom: 1em;
+}
+
+.product__brand {
+    width: 200px
+}
+
+.product__brand img {
+    width: 100%;
+}
+
+.product__header {
+    border-bottom: 1px solid #bfbfbf;
+    margin-bottom: 1em;
+}
+
+.product__price {
+    font-size: 2em;
+    color: #e26d6d;
+    font-weight: 700;
+    padding: 1rem;
+    background: #e8e8e8;
+    border-radius: 5px;
+    margin-bottom: 1em;
+}
+
+.product__actions>.btn {
+    margin-right: 1em;
+}
+
+.product__metadata {
+    border-bottom: 1px solid #bfbfbf;
+    margin-bottom: 1em;
+}
+
+.product__info {
+    margin-bottom: 1em;
+    border-bottom: 1px solid #bfbfbf;
+    line-height: 1.75;
+}
+
+.desc-table__row {
+    display: flex;
+    margin: 1em;
+}
+
+.desc-table__key {
+    flex: 1 0 30%;
+    word-break: break-word;
+    overflow: hidden;
+}
+
+.desc-table__value {
+    flex: 1 0 70%;
+}
+
+#technicalModal .modal-dialog {
+    max-width: 1024px;
+}
+
+#productSpecs ul li {
+    margin: 20px 0;
+    font-size: 14px;
+    list-style: none;
+}
+
+#productSpecs h2 {
+    color: #000;
+    margin-top: 20px;
+    font-size: 12px;
+}
+
+.review__rating {
+    width: 85px;
+    margin-top: -3px;
+    margin-right: 1em;
+}
+
+.review__rating-title {
+    display: flex;
+}
+
+.review__date {
+    font-size: 0.85em;
+    color: #a0a0a0;
+}
+
+.review__text {
+    margin-top: 1em;
+}

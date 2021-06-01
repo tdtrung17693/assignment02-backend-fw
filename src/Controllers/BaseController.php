@@ -7,6 +7,7 @@ abstract class BaseController {
     protected Response $response;
 
     protected function view($viewName, $viewArgs = []) {
+        $SESSION_MANAGER = app()->resolveClass(\SessionManager::class);
         $appConfig = require __DIR__ . "/../config/app.php";
         ob_start();
         extract($viewArgs);
@@ -28,6 +29,6 @@ abstract class BaseController {
      */
     public function init()
     {
-        $this->response = new Response;
+        $this->response = new Response();
     }
 }

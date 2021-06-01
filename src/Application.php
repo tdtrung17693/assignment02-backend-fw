@@ -7,6 +7,7 @@ class Application
      *
      * @var array[mix]
      */
+    protected static $instance;
     protected $singleton = [];
     protected $resolveInterfaceMap = [];
     protected $resolveClosureMap = [];
@@ -14,6 +15,7 @@ class Application
     function __construct()
     {
         $this->init();
+        static::setInstance($this);
     }
 
     protected function init()
@@ -22,6 +24,7 @@ class Application
 
         $this->configDatabase();
         $this->configRouting();
+        $this->singleton[SessionManager::class] = new SessionManager();
     }
 
     protected function configRouting()
@@ -44,6 +47,7 @@ class Application
 
     function run()
     {
+        $this->singleton[SessionManager::class]->start();
         $request = $this->getRequest();
         // Make request object a singleton,
         // so that other components can access the request object through dependency injection
@@ -66,6 +70,14 @@ class Application
     function registerClosure($name, $closure)
     {
         $this->resolveClosureMap[$name] = $closure;
+    }
+
+    static function setInstance($instance) {
+        static::$instance = $instance;
+    }
+
+    static function getInstance() {
+        return static::$instance;
     }
 
     function resolveClass($className)
@@ -144,4 +156,5 @@ class Application
     {
         return $this->singleton[Router::class];
     }
+
 }

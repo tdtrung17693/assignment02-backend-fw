@@ -23,7 +23,7 @@ class Response {
     }
 
     public function redirect($uri) {
-        $this->statusCode = 307;
+        $this->statusCode = 302;
         $this->setHeader('location', $uri);
 
         return $this;

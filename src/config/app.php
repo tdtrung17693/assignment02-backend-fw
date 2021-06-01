@@ -8,5 +8,6 @@ return [
     'DB_NAME' => 'assignment',
     'DB_PORT' => 3306,
     'DB_USER' => 'admin',
-    'DB_PASS' => 'admin'
+    'DB_PASS' => 'admin',
+    'UPLOAD_PATH' => '/app/public/upload'
 ];

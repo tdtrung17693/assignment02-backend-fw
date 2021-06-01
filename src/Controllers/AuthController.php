@@ -12,6 +12,12 @@ class AuthController extends BaseController {
         return $this->view('login');
     }
 
+    public function doLogin() {
+        $this->sessionManager->start();
+        $this->sessionManager->set('user', 'abc');
+        return $this->response->redirect('/');
+    }
+
     public function logout() {
         $this->sessionManager->destroy();
         return $this->response->redirect('/');

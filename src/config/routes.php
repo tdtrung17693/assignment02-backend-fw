@@ -11,6 +11,7 @@ use Controllers\NewsController;
 use Controllers\ProductsController;
 use Controllers\ServicesController;
 use Middleware\AuthMiddleware;
+use Controllers\Admin\ProductsController as AdminProductsController;
 
 $router->get('/', HomeController::class, 'index');
 $router->get('/products', ProductsController::class, 'index');
@@ -23,8 +24,11 @@ $router->get('/careers', CareersController::class, 'index');
 // Uncomment when needing guard
 //$router->get('/admin', AdminController::class, 'index')->middleware(AuthMiddleware::class);
 $router->get('/admin', AdminController::class, 'index');
+$router->get('/admin/products', AdminProductsController::class, 'index');
+$router->get('/admin/products/:id', AdminProductsController::class, 'show');
+$router->post('/admin/products/:id/images', AdminProductsController::class, 'createProductImage');
 
-$router->get('/login', AuthController::class, 'login');
+$router->get('/login', AuthController::class, 'doLogin');
 $router->get('/logout', AuthController::class, 'logout');
 $router->get('/404', ErrorController::class, 'error_404');
 $router->get('/403', ErrorController::class, 'error_403');

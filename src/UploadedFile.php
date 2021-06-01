@@ -19,9 +19,18 @@ class UploadedFile {
         $this->mimeType = $mimeType;
     }
 
-    function store($directory, $fileName = null) {
-        $fileName = $fileName ?? $this->originalName;
+    static function emptyFile()
+    {
+        return new self("", "", "");
+    }
 
-        move_uploaded_file($this->path, $directory . DIRECTORY_SEPARATOR . $fileName);
+    function store($directory, $fileName = null) {
+        if (!$this->originalName || !$this->mimeType) return false;
+
+        $fileName = $fileName ?? $this->originalName;
+        $uploaded = move_uploaded_file($this->path, $directory . DIRECTORY_SEPARATOR . $fileName);
+
+        if (!$uploaded) return false;
+        return $directory . DIRECTORY_SEPARATOR . $fileName;
     }
 }

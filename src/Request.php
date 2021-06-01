@@ -26,12 +26,20 @@ class Request
         echo "</pre>";
     }
 
-    function input($inputName, $defaultValue) {
+    function input($inputName, $defaultValue = null) {
         if (array_key_exists($inputName, $this->body)) return $this->body[$inputName];
         if (array_key_exists($inputName, $this->queries)) return $this->queries[$inputName];
 
         return $defaultValue;
-    } 
+    }
+
+    function file($inputName): UploadedFile {
+        return array_key_exists($inputName, $this->files) ? $this->files[$inputName] : UploadedFile::emptyFile();
+    }
+
+    function header($headerName) {
+        return array_key_exists($headerName, $this->headers) ? $this->headers[$headerName] : null;
+    }
 
     function hasInput($inputName) {
         return array_key_exists($inputName, $this->body) || array_key_exists($inputName, $this->queries);
@@ -59,7 +67,7 @@ class Request
         $this->method = strtolower($method);
 
         $this->baseUrl = $_SERVER['SERVER_NAME'];
-        $this->requestUri = $_SERVER['REQUEST_URI'];
+        $this->requestUri = explode('?', $_SERVER['REQUEST_URI'])[0];
 
         $this->populateHeaders();
         $this->populateFiles();
@@ -80,7 +88,7 @@ class Request
             );
 
             if ($headerName === 'cookie') $this->populateCookies($_SERVER[$headerKey]);
-            else $this->headers[$headerName] = $_SERVER[$headerKey];
+            else $this->headers[strtolower($headerName)] = $_SERVER[$headerKey];
         }
     }
 
@@ -110,9 +118,8 @@ class Request
     protected function populateQueries()
     {
         if (!(isset($_GET) && count($_GET) > 0)) return;
-
         foreach ($_GET as $inputName => $inputValue) {
-            $this->body[$inputName] = $inputValue;
+            $this->queries[$inputName] = $inputValue;
         }
     }
 

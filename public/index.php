@@ -5,4 +5,5 @@ include_once "../src/helpers.php";
 include_once "../autoloader.php";
 
 
-(new Application())->run();
+$app = new Application();
+$app->run();

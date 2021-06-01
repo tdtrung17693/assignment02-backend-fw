@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Class Database
+ * @mixin mysqli
+ */
 class Database
 {
     protected mysqli $connection;

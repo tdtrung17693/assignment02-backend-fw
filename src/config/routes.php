@@ -15,6 +15,7 @@ use Controllers\Admin\ProductsController as AdminProductsController;
 
 $router->get('/', HomeController::class, 'index');
 $router->get('/products', ProductsController::class, 'index');
+$router->post('/products/search', ProductsController::class, 'search');
 $router->get('/products/:id', ProductsController::class, 'show');
 $router->get('/services', ServicesController::class, 'index');
 $router->get('/about-us', HomeController::class, 'aboutUs');

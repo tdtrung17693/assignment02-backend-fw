@@ -39,6 +39,10 @@
                     <li class="nav-item"><a class="nav-link " href="/news">News</a></li>
                     <li class="nav-item"><a class="nav-link " href="/contact">Contact</a></li>
                     <li class="nav-item"><a class="nav-link " href="/careers">Careers</a></li>
+                    <form class="form-inline" id="getusers" action="/products/search" method="post">
+                        <input id="myInput" name ="myInput" class="form-control mr-sm-2" type="search" placeholder="Search Products" aria-label="Search">
+                        <button id="MyBtn" class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </form>
                 </ul>
             </div>
         </div>
@@ -49,6 +53,9 @@
             <h2 class="section-heading text-uppercase">Products</h2>
         </div>
     </header>
+
+    <!-- Search Result -->
+    <div class="container" id ="records"></div> 
 
     <!-- Product -->
     <section class="page-section bg-light" id="products">
@@ -253,7 +260,82 @@
     </footer>
 
 
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript">
+        var frm = $('#getusers');
+        var result;
+        frm.submit(function (e) {
+            e.preventDefault();  
+            $.ajax({
+                type: frm.attr('method'),
+                url: frm.attr('action'),
+                dataType: 'json',
+                data: frm.serialize(),
+                success: function (data) {
+                    console.log('Submission was successful.');
+                    result = data;
+                    console.log(data);
+                    document.getElementById('records').innerHTML =' <div class="row">\
+                        <div class="col-12">\
+                            <h2>Search Results</h2>\
+                        </div>\
+                        <div class="product-carousel owl-carousel col-12">';
 
+                    for(var i = 0; i < result.length; i++){
+                        document.getElementById('records').innerHTML +='<div class="product-list col-12">';
+                        if (i < result.length){
+                            document.getElementById('records').innerHTML +='<div class="product col-12 row">\
+                                    <div class="col-5">\
+                                        <div class="product__thumbnail">\
+                                            <img src="'+result[i]["Image_path"]+'" alt="'+result[i]["product_name"]+'">\
+                                        </div>\
+                                    </div>\
+                                    <div class="product__info col-7">\
+                                        <h3 class="product__name"><a href="./product-details.html">'+result[i]["product_name"]+'</a></h3>\
+                                        <div class="product__price-box"><span class="product__price">'+new Intl.NumberFormat().format(result[i]["product_price"])+' VND</span></div>\
+                                    </div>\
+                                </div>';
+                        } 
+                        i++;
+                        if (i < result.length){
+                            document.getElementById('records').innerHTML +='<div class="product col-12 row">\
+                                    <div class="col-5">\
+                                        <div class="product__thumbnail">\
+                                            <img src="'+result[i]["Image_path"]+'" alt="'+result[i]["product_name"]+'">\
+                                        </div>\
+                                    </div>\
+                                    <div class="product__info col-7">\
+                                        <h3 class="product__name"><a href="./product-details.html">'+result[i]["product_name"]+'</a></h3>\
+                                        <div class="product__price-box"><span class="product__price">'+new Intl.NumberFormat().format(result[i]["product_price"])+' VND</span></div>\
+                                    </div>\
+                                </div>';
+                        } 
+                        i++;
+                        if (i < result.length){
+                            document.getElementById('records').innerHTML +='<div class="product col-12 row">\
+                                    <div class="col-5">\
+                                        <div class="product__thumbnail">\
+                                            <img src="'+result[i]["Image_path"]+'" alt="'+result[i]["product_name"]+'">\
+                                        </div>\
+                                    </div>\
+                                    <div class="product__info col-7">\
+                                        <h3 class="product__name"><a href="./product-details.html">'+result[i]["product_name"]+'</a></h3>\
+                                        <div class="product__price-box"><span class="product__price">'+new Intl.NumberFormat().format(result[i]["product_price"])+' VND</span></div>\
+                                    </div>\
+                                </div>';
+                        } 
+                        document.getElementById('records').innerHTML += '</div>';
+                    }
+                    document.getElementById('records').innerHTML += '</div></div>';
+                },
+                error: function (data) {
+                    console.log('An error occurred.');
+                    console.log(data);
+                },
+            });
+        });
+        
+    </script> 
 
     <!-- Bootstrap core JS-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

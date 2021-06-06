@@ -39,11 +39,8 @@
                     <li class="nav-item"><a class="nav-link " href="/news">News</a></li>
                     <li class="nav-item"><a class="nav-link " href="/contact">Contact</a></li>
                     <li class="nav-item"><a class="nav-link " href="/careers">Careers</a></li>
-                    <form class="form-inline" id="getusers" action="/products/search" method="post">
-                        <input id="myInput" name ="myInput" class="form-control mr-sm-2" type="search" placeholder="Search Products" aria-label="Search">
-                        <button id="MyBtn" class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                    </form>
                 </ul>
+                
             </div>
         </div>
     </nav>
@@ -53,7 +50,17 @@
             <h2 class="section-heading text-uppercase">Products</h2>
         </div>
     </header>
-
+    <br><br>
+    <div class="container">
+    
+    <form class="form" id="getusers" action="/products/search" method="post">
+    <div class="input-group input-group-lg mb-3">
+        <input id="myInput" name ="myInput" class="form-control mr-sm-2" type="search" placeholder="Search Products" aria-label="Search">
+        <button id="MyBtn" class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
+    </div>
+    
+    </form>
+    </div>
 
    
     <div class="container" id = "filter">
@@ -356,9 +363,11 @@
         function showResult(data){
             var result = data;
             console.log(result);
+            if (searchTerm=='') searchTerm = 'All products';
+            else searchTerm = '"'+searchTerm+'"';
             document.getElementById('records').innerHTML =' <div class="row">\
                         <div class="col-12">\
-                            <h2>Search results for "'+searchTerm+'"</h2>\
+                            <h2>Search results for '+searchTerm+'</h2>\
                         </div>\
                         <div class="product-carousel owl-carousel col-12">';
 
@@ -413,7 +422,7 @@
             document.getElementById('filter').innerHTML='\
             <div class="form-group" name = "filter-tags-list" id =  "filter-tags-list"></div>\
         <p>\
-        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">\
+        <button class="btn btn-success" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">\
             Filter List\
         </button>\
         </p>\
@@ -430,6 +439,7 @@
                                     <a class="dropdown-item" onclick="filter(\'Brand-Asus\')">Asus</a>\
                                     <a class="dropdown-item" onclick="filter(\'Brand-Lenovo\')">HP</a>\
                                     <a class="dropdown-item" onclick="filter(\'Brand-Acer\')">Acer</a>\
+                                    <a class="dropdown-item" onclick="filter(\'Brand-Lenovo\')">Lenovo</a>\
                                 </div>\
                             </div>\
                         </div>\

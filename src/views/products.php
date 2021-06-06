@@ -54,8 +54,96 @@
         </div>
     </header>
 
+
+   
+    <div class="container" id = "filter">
+    </div>
+    <script> 
+            var filter_list = new Array;
+            function filter(tag){
+                if (result){
+                    // console.log(result);
+                    for (var i=0;i<filter_list.length;i++){
+                        if (filter_list[i]==tag){
+                            return;
+                        }
+                    }
+                    // console.log()
+                    filter_list.push(tag);
+                    showFilter();
+                    // console.log(filter_list);
+                    updateResult();
+                    return;
+                }
+                console.log(filter_list);
+            }
+
+            function showFilter(){
+                if (filter_list)
+                    document.getElementById('filter-tags-list').innerHTML=""; 
+                    for (var i = 0; i<filter_list.length;i++){
+                        document.getElementById('filter-tags-list').innerHTML+='\
+                            <button type="button" class="btn btn-secondary btn-sm" onclick="removeFilter(\''+
+                            filter_list[i] + '\')">' + filter_list[i]+'</button>';
+                        console.log(document.getElementById('filter-tags-list').innerHTML);
+                    }
+            }
+            function removeFilter(tag){
+                for (var i=0;i<filter_list.length;i++){
+                    if (filter_list[i]==tag){
+                        filter_list.splice(i,1);
+                        showFilter();
+                        updateResult(result);
+                        console.log(result);
+                        return;
+                    }
+                }
+            }
+            function updateResult(){
+                var temp = Array.from(result);
+                for (var i = 0; i<temp.length;i++){
+                    var bigFlag = true;
+                    for (var j = 0; j<filter_list.length;j++){
+                        var flag=false;
+                        var cat=filter_list[j].split('-')[0];
+                        var val=filter_list[j].split('-')[1];
+                        switch (cat){
+                            case 'Brand':
+                                if (temp[i]['product_brand'].split(' ')[0]==val) {
+                                    flag = true;
+                                    console.log('a'+temp[i]['product_brand'].split(' ')[0]+'a');
+                                    console.log('b'+val+'b');
+                                }
+                                break;
+                            case 'Color':
+                                if (temp[i]['product_color'].split(' ')[0]==val) flag = true;
+                                break;
+                            case 'CPU':
+                                if (temp[i]['product_chip'].split(' ')[0]==val) flag = true;
+                                break;
+                            case 'Graphic':
+                                if (temp[i]['product_graph'].split(' ')[0]==val) flag = true;
+                                break;
+                            case 'Mainboard':
+                                if (temp[i]['product_main'].split(' ')[0]==val) flag = true;
+                                break;
+                            default: return;
+                        }
+                        if (flag==false) bigFlag = false;
+
+                    }
+                    if (bigFlag==false) {
+                        temp.splice(i,1);
+                        i--;
+                    }
+                }
+                showResult(temp);
+            }
+        </script>
+
     <!-- Search Result -->
     <div class="container" id ="records"></div> 
+
 
     <!-- Product -->
     <section class="page-section bg-light" id="products">
@@ -264,20 +352,13 @@
     <script type="text/javascript">
         var frm = $('#getusers');
         var result;
-        frm.submit(function (e) {
-            e.preventDefault();  
-            $.ajax({
-                type: frm.attr('method'),
-                url: frm.attr('action'),
-                dataType: 'json',
-                data: frm.serialize(),
-                success: function (data) {
-                    console.log('Submission was successful.');
-                    result = data;
-                    console.log(data);
-                    document.getElementById('records').innerHTML =' <div class="row">\
+        var searchTerm="";
+        function showResult(data){
+            var result = data;
+            console.log(result);
+            document.getElementById('records').innerHTML =' <div class="row">\
                         <div class="col-12">\
-                            <h2>Search Results</h2>\
+                            <h2>Search results for "'+searchTerm+'"</h2>\
                         </div>\
                         <div class="product-carousel owl-carousel col-12">';
 
@@ -327,6 +408,103 @@
                         document.getElementById('records').innerHTML += '</div>';
                     }
                     document.getElementById('records').innerHTML += '</div></div>';
+        }
+        function showFilterTable(){
+            document.getElementById('filter').innerHTML='\
+            <div class="form-group" name = "filter-tags-list" id =  "filter-tags-list"></div>\
+        <p>\
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">\
+            Filter List\
+        </button>\
+        </p>\
+        <div class="collapse" id="collapseExample">\
+            <div class="card card-body">\
+                <div class="row">\
+                    <div class="col-sm">\
+                        <div class= "filter-form form-inline">\
+                            <div class="input-group-prepend">\
+                                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Brand Name</button>\
+                                <div class="dropdown-menu">\
+                                    <a class="dropdown-item" onclick="filter(\'Brand-MSI\')">MSI</a>\
+                                    <a class="dropdown-item" onclick="filter(\'Brand-Dell\')">Dell</a>\
+                                    <a class="dropdown-item" onclick="filter(\'Brand-Asus\')">Asus</a>\
+                                    <a class="dropdown-item" onclick="filter(\'Brand-Lenovo\')">HP</a>\
+                                    <a class="dropdown-item" onclick="filter(\'Brand-Acer\')">Acer</a>\
+                                </div>\
+                            </div>\
+                        </div>\
+                    </div>\
+                    <div class="col-sm">\
+                        <div class= "filter-form form-inline">\
+                            <div class="input-group-prepend">\
+                                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Color</button>\
+                                <div class="dropdown-menu">\
+                                    <a class="dropdown-item" onclick="filter(\'Color-Black\')">Black</a>\
+                                    <a class="dropdown-item" onclick="filter(\'Color-White\')">White</a>\
+                                    <a class="dropdown-item" onclick="filter(\'Color-Grey\')">Grey</a>\
+                                    <a class="dropdown-item" onclick="filter(\'Color-Pink\')">Pink</a>\
+                                </div>\
+                            </div>\
+                        </div>\
+                    </div>\
+                    <div class="col-sm">\
+                        <div class= "filter-form form-inline">\
+                            <div class="input-group-prepend">\
+                                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">CPU</button>\
+                                <div class="dropdown-menu">\
+                                    <a class="dropdown-item" onclick="filter(\'CPU-Intel\')">Intel</a>\
+                                    <a class="dropdown-item" onclick="filter(\'CPU-AMD\')">AMD</a>\
+                                    <a class="dropdown-item" onclick="filter(\'CPU-IBM\')">IBM</a>\
+                                    <a class="dropdown-item" onclick="filter(\'CPU-Qualcomm\')">Qualcomm</a>\
+                                </div>\
+                            </div>\
+                        </div>\
+                    </div>\
+                    <div class="col-sm">\
+                        <div class= "filter-form form-inline">\
+                            <div class="input-group-prepend">\
+                                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Graphic Card</button>\
+                                <div class="dropdown-menu">\
+                                    <a class="dropdown-item" onclick="filter(\'Graphic-Nvidia\')">Nvidia</a>\
+                                    <a class="dropdown-item" onclick="filter(\'Graphic-Intel\')">Intel</a>\
+                                    <a class="dropdown-item" onclick="filter(\'Graphic-AMD\')">AMD</a>\
+                                </div>\
+                            </div>\
+                        </div>\
+                    </div>\
+                    <div class="col-sm">\
+                        <div class= "filter-form form-inline">\
+                            <div class="input-group-prepend">\
+                                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Mainboard</button>\
+                                <div class="dropdown-menu">\
+                                    <a class="dropdown-item" onclick="filter(\'Mainboard-Gigabyte\')">Gigabyte</a>\
+                                    <a class="dropdown-item" onclick="filter(\'Mainboard-Asus\')">Asus</a>\
+                                    <a class="dropdown-item" onclick="filter(\'Mainboard-Dell\')">Dell</a>\
+                                    <a class="dropdown-item" onclick="filter(\'Mainboard-MSI\')">MSI</a>\
+                                    <a class="dropdown-item" onclick="filter(\'Mainboard-Biostar\')">Biostar</a>\
+                                </div>\
+                            </div>\
+                        </div>\
+                    </div>\
+                </div>\
+            </div>\
+        </div>';
+        }
+        frm.submit(function (e) {
+            searchTerm = $('#myInput').val()
+            e.preventDefault();  
+            $.ajax({
+                type: frm.attr('method'),
+                url: frm.attr('action'),
+                dataType: 'json',
+                data: frm.serialize(),
+                success: function (data) {
+
+                    console.log('Submission was successful.');
+                    result = data;
+                    console.log(data);
+                    showResult(data);
+                    showFilterTable();
                 },
                 error: function (data) {
                     console.log('An error occurred.');

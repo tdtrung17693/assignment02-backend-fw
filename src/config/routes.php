@@ -27,6 +27,9 @@ $router->get('/careers', CareersController::class, 'index');
 $router->get('/login1', AuthController::class, 'login');
 $router->get('/register', AuthController::class, 'register');
 $router->get('/forgotpw', AuthController::class, 'forgotpw');
+$router->post('/checkRegister', AuthController::class, 'checkRegister');
+$router->post('/sendRegister', AuthController::class, 'sendRegister');
+
 
 
 

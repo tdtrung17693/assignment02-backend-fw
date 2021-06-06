@@ -1,10 +1,14 @@
 <?php
 namespace Controllers;
 
+use Database;
+
 class AuthController extends BaseController {
     protected \SessionManager $sessionManager;
-    public function __construct(\SessionManager $sessionManager)
+    protected Database $database;
+    public function __construct(Database $database, \SessionManager  $sessionManager)
     {
+        $this->database = $database;
         $this->sessionManager = $sessionManager;
     }
 
@@ -24,8 +28,273 @@ class AuthController extends BaseController {
 
     }
 
+    public function checkRegister()
+    {
+        if (isset($_POST['check_fname']))
+        {
+            $fname = $_POST['check_fname'];
+            if(strlen($fname) < 2 || strlen($fname) > 30) {
+
+                return '<span class="text-danger"> Firstname: 2 - 30 characters!  </span>';
+            }
+            else
+            {
+                return '';
+            }
+        }
+        if (isset($_POST['check_lname']))
+        {
+            $lname = $_POST['check_lname'];
+            if(strlen($lname) < 2 || strlen($lname) > 30) {
+
+                return '<span class="text-danger"> Lastname: 2 - 30 characters!   </span>';
+            }
+            else
+            {
+                return '';
+            }
+        
+        }
+
+        if (isset($_POST['check_pass']))
+        {
+            $pass = $_POST['check_pass'];
+            if(strlen($pass) < 6 || strlen($pass) > 30) {
+
+                return '<span class="text-danger"> Password: 6 - 30 characters!   </span>';
+            }
+            else
+            {
+                return '';
+            }
+
+        }
+
+        if (isset($_POST['confirm']))
+        {
+
+            $pass =  $_POST['cf_pass'];
+            $cf =  $_POST['confirm'];
+
+            if ($pass != $cf || strlen($pass) == 0)
+            {
+
+                return '<span class="text-danger"> Missmatch password!  </span>';
+            }
+            else
+            {
+                return '';
+            }
+
+        }
+
+
+        if (isset($_POST['user_name']))
+        {
+            $username = $_POST['user_name'];
+            if (strlen($username) == 0)
+            {
+                return '<span class="text-danger"> Please enter username!  </span>';
+            }
+            else
+            {
+                $query = "SELECT * FROM  users WHERE  username ='$username'";
+                $result = $this->database->query($query);
+                if (mysqli_num_rows($result) > 0)
+                {
+
+                    return  '<span class="text-danger"> Username is already exits </span>';
+                    
+                }
+                else
+                {
+                    return '<span class="text-success"> Username is available </span>';
+                }
+            }
+        }
+
+        if (isset($_POST['phone_num']))
+        {
+            $phonenum = $_POST['phone_num'];
+
+            if (strlen($phonenum) == 0)
+            {
+                return '<span class="text-danger"> Please enter your phone number! </span>';
+            }
+            else
+            {
+                $query = "SELECT * FROM  users WHERE  phonenum ='$phonenum'";
+                $result = $this->database->query($query);
+                if (mysqli_num_rows($result) > 0)
+                {
+                    return '<span class="text-danger"> Phone number is already registered for another account</span>';
+                }
+                else
+                {
+                    
+                    return '';
+                }
+            }
+
+        }
+        if (isset($_POST['check_email']))
+        {
+            
+            $email = $_POST['check_email'];
+            $check = preg_match("/^.*@.*\..*/i", $email);
+        
+            if (strlen($email) == 0)
+            {
+
+                return '<span class="text-danger"> Please enter your email!</span>';
+
+            }
+            elseif($check == 0) {
+
+                return '<span class="text-danger"> Email must follow this format: sth@sth.sth! </span>';
+            }
+            else
+            {
+                $query = "SELECT * FROM  users WHERE  email ='$email'";
+                $result = $this->database->query($query);
+                if (mysqli_num_rows($result) > 0)
+                {
+
+                    return '<span class="text-danger"> Email is already registered for another account</span>';
+                }
+                else
+                {
+                    return '<span class="text-success"> Email is available </span>';
+
+                }
+            }
+
+        }
+    }
+
+
+    public function sendRegister()
+    {
+        
+            $fname = $_POST['firstName'];
+            $lname = $_POST['lastName'];
+            $phonenumber = $_POST['phone'];
+            $username = $_POST['username'];
+            $password1 = $_POST['password'];
+            $email = $_POST['email'];
+            $day = $_POST['day'];
+            $m = $_POST['month'];
+            $y = $_POST['year'];
+            $address = $_POST['address'];
+    
+            $bdate = "$m $day $year";
+            $bd  = date("Y - m -d",strtotime($bdate));   
+            $password = md5($password1);
+            $cf =  $_POST['confirmpassword'];
+
+            $checkMail = preg_match("/^.*@.*\..*/i", $email);
+
+
+
+            $check = true;
+            if(strlen($fname) < 2 || strlen($fname) > 30) {
+                $check = false;
+        
+            }
+            elseif(strlen($lname) < 2 || strlen($lname) > 30) {
+                $check = false;
+
+            }
+
+            elseif(strlen($password1) < 6 || strlen($password1) > 30) {
+                $check = false;
+
+            }
+            elseif ($password1 != $cf || strlen($password1) == 0)
+            {
+                $check = false;
+
+            }
+
+            elseif ($password1 != $cf || strlen($password1) == 0)
+            {
+                $check = false;
+
+            }
+
+            elseif (strlen($username) == 0)
+            {
+                $check = false;
+
+            }
+            elseif (strlen($username) != 0)
+            {
+                $query = "SELECT * FROM  users WHERE  username ='$username'";
+                $result = $this->database->query($query);
+                if (mysqli_num_rows($result) > 0)
+                {
+                    $check = false;
+
+                }
+            }
+            elseif (strlen($phonenumber) == 0)
+            {
+                $check = false;
+
+        
+            }
+            elseif (strlen($phonenumber) != 0)
+            {
+                $query = "SELECT * FROM  users WHERE  phonenum ='$phonenumber'";
+                $result = $this->database->query($query);
+                
+                if (mysqli_num_rows($result) > 0)
+                {
+                    $check = false;
+
+                }
+            }
+            elseif($checkMail == 0) {
+                $check = false;
+
+        
+            }
+            elseif($checkMail == 0) 
+            {
+                $query = "SELECT * FROM  users WHERE  email ='$email'";
+                $result = $this->database->query($query);
+                if (mysqli_num_rows($result) > 0)
+                {
+                    $check = false;
+
+                }
+            }
+            else{
+                $check = true;
+
+            }
+
+        if ($check)
+        {
+            $query = "INSERT INTO users (fname,lname,phonenum,email,username,password,bdate,address) 
+                    VALUES ('$fname','$lname','$phonenumber','$email','$username','$password','$bd','$address')";
+            $this->database->query($query);    
+
+            return $this->response->redirect('/login1?inform=Create account successfully - Login now!');
+
+        }
+        else
+        {
+            return $this->response->redirect('/register?error=Please enter valid infomation!');
+
+        }
+    }
+
+
     public function doLogin() {
         $this->sessionManager->start();
+
+
         $this->sessionManager->set('user', 'abc');
         return $this->response->redirect('/');
     }

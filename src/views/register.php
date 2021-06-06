@@ -26,28 +26,6 @@
 
 
 
-
-
-    <!-- /* .btn-facebook {
-        background: #405D9D;
-        border: none;
-    }
-
-    .btn-facebook:hover,
-    .btn-facebook:focus {
-        background: #314879;
-    }
-
-    .btn-twitter {
-        background: #42AEEC;
-        border: none;
-    }
-
-    .btn-twitter:hover,
-    .btn-twitter:focus {
-        background: #1799e4;
-    } */ -->
-
 </head>
 
 <body id="page-top">
@@ -58,7 +36,7 @@
     <header class="masthead">
         <div class="container">
 
-            <form name="registerForm" action="sendInfoToDb.php" method="POST">
+            <form name="registerForm" action="/sendRegister" method="POST">
 
                 <div class="text-center">
                     <h2 class="section-heading text-uppercase text-black-50">Register</h2>
@@ -69,7 +47,7 @@
                     <label for="firstName" class="col-3 col-form-label text-black-50">First name:</label>
                     <div class="col-9">
                         <input type="text" class="form-control col-9" name="firstName" id="firstname"
-                            onfocus="this.placeholder=''" onblur="this.placeholder='Enter First name ...'"
+                            onfocus="this.placeholder=''" 
                             placeholder="Enter First name ..." required>
                         <div class="text-left">
                             <span id="availfname"> </span>
@@ -82,7 +60,7 @@
                     <label for="lastName" class="col-3 col-form-label text-black-50">Last name:</label>
                     <div class="col-9">
                         <input type="text" class="form-control col-9" name="lastName" id="lastname"
-                            onfocus="this.placeholder=''" onblur="this.placeholder='Enter Last name ...'"
+                            onfocus="this.placeholder=''" 
                             placeholder="Enter Last name ..." required>
                         <div class="text-left">
                             <span id="availlname"> </span>
@@ -95,7 +73,7 @@
                     <label for="phonenumber" class="col-3 col-form-label text-black-50">Phone number:</label>
                     <div class="col-9">
                         <input type="tel" class="form-control col-9" id="phone" name="phone"
-                            placeholder="Enter Phone number:" onblur="this.placeholder='Enter phone number ...'"
+                            placeholder="Enter Phone number:" 
                             onfocus="this.placeholder=''" pattern="[0]{1}[0-9]{3}[0-9]{3}[0-9]{3}" required>
                         <div class="text-left">
                             <span id="availphone"> </span>
@@ -107,7 +85,7 @@
                     <label for="email" class="col-3 col-form-label text-black-50">Email:</label>
                     <div class="col-9">
                         <input type="text" class="form-control col-9" id="email" name="email"
-                            onfocus="this.placeholder=''" onblur="this.placeholder='exam@exam.exam'"
+                            onfocus="this.placeholder=''" 
                             placeholder="exam@exam.exam" required>
                         <div class="text-left">
                             <span id="availemail"> </span>
@@ -119,7 +97,7 @@
                     <label for="username" class="col-3 col-form-label text-black-50">Username:</label>
                     <div class="col-9">
                         <input type="text" class="form-control col-9" id="username" name="username"
-                            onfocus="this.placeholder=''" onblur="this.placeholder='Enter Username ...'"
+                            onfocus="this.placeholder=''"
                             placeholder="Enter Username ..." required>
                         <div class="text-left">
                             <span id="availname"> </span>
@@ -132,7 +110,7 @@
                     <label for="password" class="col-3 col-form-label text-black-50">Password:</label>
                     <div class="col-9">
                         <input type="password" class="form-control col-9" name="password" id="password"
-                            onfocus="this.placeholder=''" onblur="this.placeholder='Enter Password ...'"
+                            onfocus="this.placeholder=''" 
                             placeholder="Enter Password ..." required>
                         <div class="text-left">
                             <span id="availpass"> </span>
@@ -145,7 +123,7 @@
                     <label for="confirmpassword" class="col-3 col-form-label text-black-50">Confirm Pass:</label>
                     <div class="col-9">
                         <input type="password" class="form-control col-9" id="confirm" name="confirmpassword"
-                            onfocus="this.placeholder=''" onblur="this.placeholder='Confirm Password ...'"
+                            onfocus="this.placeholder=''" 
                             placeholder="Confirm Password ..." required>
                         <div class="text-left">
                             <span id="availcf"> </span>
@@ -311,7 +289,7 @@
                     <label for="firstName" class="col-3 col-form-label text-black-50">Address:</label>
                     <div class="col-9">
                         <input type="text" class="form-control col-9" name="address" id="address"
-                            onfocus="this.placeholder=''" onblur="this.placeholder='Enter Address ...'"
+                            onfocus="this.placeholder=''" 
                             placeholder="Enter Address ..." required>
     
                     </div>
@@ -403,7 +381,7 @@
         $("#username").blur(function() {
             var username = $(this).val();
             $.ajax({
-                url: "CheckRegister.php",
+                url: "/checkRegister",
                 method: "POST",
                 data: {
                     user_name: username
@@ -419,7 +397,7 @@
         $("#phone").blur(function() {
             var phone = $(this).val();
             $.ajax({
-                url: "CheckRegister.php",
+                url: "/checkRegister",
                 method: "POST",
                 data: {
                     phone_num: phone
@@ -435,7 +413,7 @@
         $("#email").blur(function() {
             var email = $(this).val();
             $.ajax({
-                url: "CheckRegister.php",
+                url: "/checkRegister",
                 method: "POST",
                 data: {
                     check_email: email
@@ -451,7 +429,7 @@
         $("#lastname").blur(function() {
             var lname = $(this).val();
             $.ajax({
-                url: "CheckRegister.php",
+                url: "/checkRegister",
                 method: "POST",
                 data: {
                     check_lname: lname
@@ -469,7 +447,7 @@
         $("#firstname").blur(function() {
             var fname = $(this).val();
             $.ajax({
-                url: "CheckRegister.php",
+                url: "/checkRegister",
                 method: "POST",
                 data: {
                     check_fname: fname
@@ -485,7 +463,7 @@
         $("#password").blur(function() {
             var pass = $(this).val();
             $.ajax({
-                url: "CheckRegister.php",
+                url: "/checkRegister",
                 method: "POST",
                 data: {
                     check_pass: pass
@@ -502,7 +480,7 @@
             var cf = $(this).val();
             var pass = document.getElementById("password").value;
             $.ajax({
-                url: "CheckRegister.php",
+                url: "/checkRegister",
                 method: "POST",
                 data: {
                     cf_pass: pass,

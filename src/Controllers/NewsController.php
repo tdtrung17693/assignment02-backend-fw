@@ -20,4 +20,8 @@ class NewsController extends BaseController
     {
         return $this->view('news');
     }
+
+    public function show() {
+        return $this->view('news_detail');
+    }
 }

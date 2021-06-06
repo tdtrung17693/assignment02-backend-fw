@@ -15,29 +15,28 @@
     <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="css/home.css" rel="stylesheet" />
-    <link href="css/news_detail.css" rel="stylesheet" />
+    <link href="/assets/css/home.css" rel="stylesheet" />
+    <link href="/assets/css/news_detail.css" rel="stylesheet" />
 </head>
 
 <body id="page-top">
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
         <div class="container">
-            <a class="navbar-brand js-scroll-trigger" href="#page-top"><img src="assets/img/company.png" alt=""></a>
+            <a class="navbar-brand js-scroll-trigger" href="#page-top"><img src="/assets/images/company.png" alt=""></a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
                     <i class="fas fa-bars ml-1"></i>
                 </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav text-uppercase ml-auto">
-                    <li class="nav-item"><a class="nav-link " href="Home.html">Homepage</a></li>
-                    <li class="nav-item"><a class="nav-link " href="products.html">Product</a></li>
-                    <li class="nav-item"><a class="nav-link " href="service.html">Service</a></li>
-                    <li class="nav-item"><a class="nav-link " href="aboutus.html">About us</a></li>
-                    <li class="nav-item"><a class="nav-link " href="news.html">News</a></li>
-                    <li class="nav-item"><a class="nav-link " href="contact.html">Contact</a></li>
-                    <li class="nav-item"><a class="nav-link " href="career.html">Career</a></li>
-
+                    <li class="nav-item"><a class="nav-link " href="/">Homepage</a></li>
+                    <li class="nav-item"><a class="nav-link " href="/products">Products</a></li>
+                    <li class="nav-item"><a class="nav-link " href="/services">Services</a></li>
+                    <li class="nav-item"><a class="nav-link " href="/about-us">About us</a></li>
+                    <li class="nav-item"><a class="nav-link " href="/news">News</a></li>
+                    <li class="nav-item"><a class="nav-link " href="/contact">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link " href="/careers">Careers</a></li>
                 </ul>
             </div>
         </div>
@@ -47,7 +46,7 @@
         <div class="container">
             <div class="masthead-subheading">Welcome To Our Company!</div>
             <div class="masthead-heading text-uppercase">It's Nice To Meet You</div>
-            <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="Home.html">More Infomation</a>
+            <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="/">More Infomation</a>
         </div>
     </header>
 
@@ -57,8 +56,8 @@
             <div class="d-flex justify-content-between size">
                 <div class="">
                     <ul class="breadcrumb bg-light">
-                        <li class="breadcrumb-item"><a href="Home.html">Home</a></li>
-                        <li class="breadcrumb-item"><a href="news.html">News</a></li>
+                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                        <li class="breadcrumb-item"><a href="/news">News</a></li>
                     </ul>
                 </div>
                 <div class="date">March 16, 2021</div>

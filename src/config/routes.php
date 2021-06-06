@@ -20,6 +20,7 @@ $router->get('/products/:id', ProductsController::class, 'show');
 $router->get('/services', ServicesController::class, 'index');
 $router->get('/about-us', HomeController::class, 'aboutUs');
 $router->get('/news', NewsController::class, 'index');
+$router->get('/news/detail', NewsController::class, 'show');
 $router->get('/contact', ContactController::class, 'index');
 $router->get('/careers', CareersController::class, 'index');
 // Uncomment when needing guard

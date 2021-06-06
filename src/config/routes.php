@@ -29,6 +29,9 @@ $router->get('/register', AuthController::class, 'register');
 $router->get('/forgotpw', AuthController::class, 'forgotpw');
 $router->post('/checkRegister', AuthController::class, 'checkRegister');
 $router->post('/sendRegister', AuthController::class, 'sendRegister');
+$router->post('/doLogin', AuthController::class, 'doLogin');
+$router->get('/logout', AuthController::class, 'logout');
+$router->post('/login', AuthController::class, 'doLogin');
 
 
 
@@ -41,7 +44,5 @@ $router->get('/admin/products', AdminProductsController::class, 'index');
 $router->get('/admin/products/:id', AdminProductsController::class, 'show');
 $router->post('/admin/products/:id/images', AdminProductsController::class, 'createProductImage');
 
-$router->get('/login', AuthController::class, 'doLogin');
-$router->get('/logout', AuthController::class, 'logout');
 $router->get('/404', ErrorController::class, 'error_404');
 $router->get('/403', ErrorController::class, 'error_403');

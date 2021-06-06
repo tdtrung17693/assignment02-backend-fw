@@ -195,7 +195,6 @@ class AuthController extends BaseController {
             $checkMail = preg_match("/^.*@.*\..*/i", $email);
 
 
-
             $check = true;
             if(strlen($fname) < 2 || strlen($fname) > 30) {
                 $check = false;
@@ -295,12 +294,55 @@ class AuthController extends BaseController {
         $this->sessionManager->start();
 
 
-        $this->sessionManager->set('user', 'abc');
-        return $this->response->redirect('/');
+        $uname = $_POST['username'];
+        $password1 = $_POST['password'];
+
+        $password = md5($password1);
+
+        $sql = "SELECT * FROM users WHERE  username ='$uname'";
+        $result = $this->database->query($sql);
+
+        if (mysqli_num_rows($result) === 1)
+        {
+            $row = $result->fetch_assoc();
+            if ($row['username'] == $uname && $row['password'] === $password)
+            {
+                if (!empty($_POST['remember_me']))
+                {
+                    setcookie("member_login",$uname,time()+ (10 * 365 * 24  * 60 * 60));
+                    setcookie("member_password",$password1,time()+ (10 * 365 * 24  * 60 * 60));
+                }
+                else 
+                {
+                    if (isset($_COOKIE['member_login']))
+                    {
+                        setcookie("member_login","");
+                    }
+                    if (isset($_COOKIE['member_password']))
+                    {
+                        setcookie("member_password","");
+                    }
+                }
+                $this->sessionManager->set('username',$row['username']);
+                $this->sessionManager->set('id',$row['id']);
+
+                return $this->response->redirect('/');
+            }
+            else
+            {
+                return $this->response->redirect('/login1?wrong=Incorrect User Name or Password');
+
+            }
+        }
+
+        else
+        {
+            return $this->response->redirect('/login1?wrong=Incorrect User Name or Password');
+        }
     }
 
     public function logout() {
         $this->sessionManager->destroy();
-        return $this->response->redirect('/');
+        return $this->response->redirect('/login1');
     }
 }

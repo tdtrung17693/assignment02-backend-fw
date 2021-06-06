@@ -20,15 +20,25 @@
                 <!-- <li class="nav-item"><a class="nav-link " href="/login1">Login</a></li> -->
                 <li class="dropdown order-1">
                     <button type="button" id="dropdownMenu1" data-toggle="dropdown"
-                        class="btn btn-outline-secondary dropdown-toggle text-white">Account <span
+                        class="btn btn-outline-secondary dropdown-toggle text-white"><i
+                                class="fa fa-cog fa-fw fa-lg"></i> <span
                             class="caret"></span></button>
 
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="/login1">Login</a>
-                        <a class="dropdown-item" href="/register">Register</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item nav-item " href="#" title="settings"><i
-                                class="fa fa-cog fa-fw fa-lg"></i></a>
+                    <?php if (!isset($_SESSION['username'])){?>  
+
+                        <a class="dropdown-item text-center" href="/login1">Login</a>
+                        <a class="dropdown-item text-center" href="/register">Register</a>
+                        <?php }?>
+
+                        <?php if (isset($_SESSION['username'])){?>  
+                            <a class="dropdown-item  text-center" href="">My Account</a>
+
+                            <a class="dropdown-item text-center" href="/logout">Logout</a>
+
+
+                         <?php }?>
+
                     </div>
                     
                     <!-- <ul class="dropdown-menu dropdown-menu-right mt-2">

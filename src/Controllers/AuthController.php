@@ -9,7 +9,19 @@ class AuthController extends BaseController {
     }
 
     public function login() {
-        return $this->view('login');
+        return $this->view('login1');
+    }
+
+    public function register()
+    {
+        return $this->view('register');
+
+    }
+
+    public function forgotpw()
+    {
+        return $this->view('forgotpw');
+
     }
 
     public function doLogin() {

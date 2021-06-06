@@ -23,6 +23,14 @@ $router->get('/news', NewsController::class, 'index');
 $router->get('/news/detail', NewsController::class, 'show');
 $router->get('/contact', ContactController::class, 'index');
 $router->get('/careers', CareersController::class, 'index');
+
+$router->get('/login1', AuthController::class, 'login');
+$router->get('/register', AuthController::class, 'register');
+$router->get('/forgotpw', AuthController::class, 'forgotpw');
+
+
+
+
 // Uncomment when needing guard
 //$router->get('/admin', AdminController::class, 'index')->middleware(AuthMiddleware::class);
 $router->get('/admin', AdminController::class, 'index');

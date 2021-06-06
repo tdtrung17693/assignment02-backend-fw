@@ -362,12 +362,13 @@
         var searchTerm="";
         function showResult(data){
             var result = data;
+            var search = "";
             console.log(result);
-            if (searchTerm=='') searchTerm = 'All products';
-            else searchTerm = '"'+searchTerm+'"';
+            if (searchTerm=='') search = 'All products';
+            else search = '"'+searchTerm+'"';
             document.getElementById('records').innerHTML =' <div class="row">\
                         <div class="col-12">\
-                            <h2>Search results for '+searchTerm+'</h2>\
+                            <h2>Search results for '+search+'</h2>\
                         </div>\
                         <div class="product-carousel owl-carousel col-12">';
 
@@ -509,7 +510,6 @@
                 dataType: 'json',
                 data: frm.serialize(),
                 success: function (data) {
-
                     console.log('Submission was successful.');
                     result = data;
                     console.log(data);

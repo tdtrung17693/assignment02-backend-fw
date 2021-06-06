@@ -32,6 +32,7 @@ $router->post('/sendRegister', AuthController::class, 'sendRegister');
 $router->post('/doLogin', AuthController::class, 'doLogin');
 $router->get('/logout', AuthController::class, 'logout');
 $router->post('/login', AuthController::class, 'doLogin');
+$router->post('/checkForgotpw', AuthController::class, 'checkForgotpw');
 
 
 

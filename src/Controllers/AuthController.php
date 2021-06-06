@@ -341,6 +341,22 @@ class AuthController extends BaseController {
         }
     }
 
+    public function checkForgotpw()
+    {
+        $getPass = $_POST['getPass'];
+        $sql = "SELECT * FROM users WHERE  phonenum = '$getPass' OR email = '$getPass'";
+        $result = $this->database->query($sql);
+        if (mysqli_num_rows($result) === 1)
+        {
+            return $this->response->redirect('/login1?success=Success! Check your email to get password');
+
+        }
+        else
+        {
+            return $this->response->redirect('/forgotpw?error= Can not find your account!');
+        }
+
+    }
     public function logout() {
         $this->sessionManager->destroy();
         return $this->response->redirect('/login1');

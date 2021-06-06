@@ -129,7 +129,6 @@
                             <span id="availcf"> </span>
                         </div>
                     </div>
-
                 </div>
 
 
@@ -337,7 +336,6 @@
                     <p class="text-muted font-weight-bold">Already Registered? <a href="/login1"
                             class="text-primary ml-2">Login</a></p>
                 </div>
-
             </form>
         </div>
     </header>

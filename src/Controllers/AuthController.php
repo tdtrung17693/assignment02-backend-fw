@@ -187,7 +187,7 @@ class AuthController extends BaseController {
             $y = $_POST['year'];
             $address = $_POST['address'];
     
-            $bdate = "$m $day $year";
+            $bdate = "$m $day $y";
             $bd  = date("Y - m -d",strtotime($bdate));   
             $password = md5($password1);
             $cf =  $_POST['confirmpassword'];

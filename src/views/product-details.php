@@ -24,6 +24,7 @@
     <link href="/assets/css/home.css" rel="stylesheet" />
     <link rel="stylesheet" href="/assets/css/xzoom.css" />
     <link href="/assets/css/product-details.css" rel="stylesheet" />
+    <link href="/assets/css/login-dialog.css" rel="stylesheet" />
 </head>
 
 <body id="page-top">
@@ -39,7 +40,8 @@
 
     <!-- Product -->
     <section class="page-section bg-light" id="product-details">
-        <div class="container" >
+        
+        <div class="container" style="display: none;">
             <div id="user_name" >
                 <?php if (isset($_SESSION['username'])) echo $_SESSION['username'];
                       else echo "Empty";     
@@ -263,7 +265,6 @@
     
             <div class="coment-bottom  p-2 px-4">
                 <div class="d-flex flex-row add-comment-section mt-4 mb-4" id="comment_box">
-                    <img class="img-fluid img-responsive rounded-circle mr-2" src="https://i.imgur.com/qdiP4DB.jpg" width="38">
                     <input type="text" class="form-control mr-3" id="cmt" placeholder="Add comment">
                     <button class="btn btn-primary" type="button" id="btn_cmt">Comment</button>
                 </div>
@@ -478,7 +479,44 @@
     <!-- Footer-->
     <?php include 'layout/footer.php'; ?>
 
-    
+    <!-- dialog box -->
+    <div id="white-background">
+    </div>
+    <div id="dlgbox">
+        <div id="dlg-header">Please Login!</div>
+        <div id="dlg-body">You must login to post a comment!</div>
+        <div id="dlg-footer">
+            <a class="btn btn-primary" href="/login1">Login</a>
+            <button class="btn btn-primary" onclick="dlgCancel()">Cancel</button>
+        </div>
+    </div>
+
+<!-- script of dialog -->
+    <script>
+        function dlgCancel(){
+            dlgHide();
+
+        }
+        function dlgHide(){
+            var whitebg = document.getElementById("white-background");
+            var dlg = document.getElementById("dlgbox");
+            whitebg.style.display = "none";
+            dlg.style.display = "none";
+        }
+
+        function showDialog(){
+            var whitebg = document.getElementById("white-background");
+            var dlg = document.getElementById("dlgbox");
+            whitebg.style.display = "block";
+            dlg.style.display = "block";
+
+            var winWidth = window.innerWidth;
+
+            dlg.style.left = (winWidth/2) - 480/2 + "px";
+            dlg.style.top = "150px";
+        }
+    </script>
+
 
     <!-- Bootstrap core JS-->
     
@@ -511,7 +549,7 @@
                     },
                     datatype: "text",
                     success: function(data) {
-                        console.log(data);
+                        
                         $("#comment_box").after('<div class="commented-section mt-2">\
                             <div class="d-flex flex-row align-items-center commented-user">\
                                 <h5 class="mr-2">' + u_name +'</h5><span class="dot mb-1"></span><span class="mb-1 ml-2">4 hours ago</span>\
@@ -523,13 +561,16 @@
                                 </div>\
                             </div>\
                         </div>');
-                            
+                        
+                        $("#cmt").val("");
+
                         }
                     });
 
                 }
                 else {
                     console.log("Fail");
+                    showDialog();
                 }
                 
 

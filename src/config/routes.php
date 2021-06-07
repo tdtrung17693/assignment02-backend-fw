@@ -18,6 +18,7 @@ $router->get('/', HomeController::class, 'index');
 $router->get('/products', ProductsController::class, 'index');
 $router->post('/products/search', ProductsController::class, 'search');
 $router->get('/products/:id', ProductsController::class, 'show');
+$router->post('/products/comment', ProductsController::class, 'postComment');
 $router->get('/services', ServicesController::class, 'index');
 $router->get('/about-us', HomeController::class, 'aboutUs');
 $router->get('/news', NewsController::class, 'index');

@@ -12,7 +12,7 @@ class Request
     protected $queries = [];
     protected $headers = [];
     protected $cookies = [];
-    protected $allowedMethods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'];
+    protected $allowedMethods = ['get', 'post', 'put', 'patch', 'delete', 'options'];
 
     function __construct()
     {
@@ -61,7 +61,7 @@ class Request
     {
         $method = $_SERVER['REQUEST_METHOD'];
 
-        if ($method == 'POST' && array_key_exists(METHOD_NAME, $_POST) && in_array($_POST[METHOD_NAME], $this->allowedMethods)) {
+        if ($method == 'POST' && array_key_exists(METHOD_NAME, $_POST) && in_array(strtolower($_POST[METHOD_NAME]), $this->allowedMethods)) {
             $method = $_POST[METHOD_NAME];
         }
         $this->method = strtolower($method);

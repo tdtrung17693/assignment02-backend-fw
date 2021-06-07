@@ -40,6 +40,7 @@ function env($envName)
  * @param $totalPages
  */
 function pagination($pageNumber, $totalPages) {
+    if ($totalPages == 1) return [1];
     $pageList = [];
 
     if ($pageNumber >= 1) {

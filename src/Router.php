@@ -85,7 +85,7 @@ class Router
     public function dispatch(Request $request)
     {
         $route = $this->findMatchedRoute($request);
-        
+
         if (is_null($route)) throw new NotFoundHttpException;
 
         return $route->run($request);
@@ -95,7 +95,7 @@ class Router
     {
         $requestUri = $request->getRequestUri();
         $requestMethod = $request->getRequestMethod();
-        
+
         foreach ($this->routes[$requestMethod] as $route) {
             if ($route->match($requestUri)) {
                 return $route;

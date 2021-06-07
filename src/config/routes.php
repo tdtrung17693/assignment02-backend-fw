@@ -12,6 +12,7 @@ use Controllers\ProductsController;
 use Controllers\ServicesController;
 use Middleware\AuthMiddleware;
 use Controllers\Admin\ProductsController as AdminProductsController;
+use Controllers\Admin\UsersController as AdminUsersController;
 
 $router->get('/', HomeController::class, 'index');
 $router->get('/products', ProductsController::class, 'index');
@@ -27,8 +28,17 @@ $router->get('/careers', CareersController::class, 'index');
 //$router->get('/admin', AdminController::class, 'index')->middleware(AuthMiddleware::class);
 $router->get('/admin', AdminController::class, 'index');
 $router->get('/admin/products', AdminProductsController::class, 'index');
+$router->get('/admin/products/new', AdminProductsController::class, 'create');
 $router->get('/admin/products/:id', AdminProductsController::class, 'show');
+$router->post('/admin/products', AdminProductsController::class, 'store');
 $router->post('/admin/products/:id/images', AdminProductsController::class, 'createProductImage');
+$router->put('/admin/products/:id', AdminProductsController::class, 'update');
+$router->delete('/admin/products/:id', AdminProductsController::class, 'delete');
+$router->delete('/admin/products/:id/images/:imgId', AdminProductsController::class, 'deleteProductImage');
+
+// Admin Users
+$router->get('/admin/users', AdminUsersController::class, 'index');
+$router->get('/admin/users/:id', AdminUsersController::class, 'show');
 
 $router->get('/login', AuthController::class, 'doLogin');
 $router->get('/logout', AuthController::class, 'logout');

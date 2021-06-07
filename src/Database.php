@@ -24,4 +24,12 @@ class Database
 
         return call_user_func_array([$this->connection, $name], $arguments);
     }
+
+
+    function __get($name)
+    {
+        if (!property_exists($this->connection, $name)) throw new Exception("Database::$name does not exist.");
+
+        return $this->connection->{$name};
+    }
 }

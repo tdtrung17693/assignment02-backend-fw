@@ -569,8 +569,9 @@
 
                 }
                 else {
-                    console.log("Fail");
+                    $("#cmt").val("");
                     showDialog();
+                    
                 }
                 
 

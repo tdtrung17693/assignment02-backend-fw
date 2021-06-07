@@ -46,6 +46,7 @@ class ProductsController extends BaseController {
         return json_encode($results);
     }
     public function show($id) {
+        
         return $this->view('product-details');
     }
 

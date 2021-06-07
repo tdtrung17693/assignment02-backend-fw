@@ -10,6 +10,9 @@
     <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico" />
     <!-- Font Awesome icons (free version)-->
     <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    
     <!-- Google fonts-->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic" rel="stylesheet"
@@ -24,42 +27,9 @@
 </head>
 
 <body id="page-top">
-    <!-- Navigation-->
-    <nav class="navbar navbar-expand-lg navbar-dark" id="mainNav">
-        <div class="container">
-            <a class="navbar-brand js-scroll-trigger" href="#page-top"><img src="/assets/images/company.png"
-                    alt="" /></a>
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-                data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
-                aria-label="Toggle navigation">
-                Menu
-                <i class="fas fa-bars ml-1"></i>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav text-uppercase ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/">Homepage</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/products">Products</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/services">Services</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/about-us">About us</a>
-                    </li>
-                    <li class="nav-item"><a class="nav-link " href="/news">News</a></li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/contact">Contact</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/careers">Careers</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <?php include 'layout/header.php'; ?>
+
+
     <!-- Masthead-->
     <header class="masthead">
         <div class="container">
@@ -69,6 +39,19 @@
 
     <!-- Product -->
     <section class="page-section bg-light" id="product-details">
+        <div class="container" >
+            <div id="user_name" >
+                <?php if (isset($_SESSION['username'])) echo $_SESSION['username'];
+                      else echo "Empty";     
+                ?>  
+            </div>
+            <div id="user_id" >
+                <?php if (isset($_SESSION['id'])) echo $_SESSION['id'];
+                      else echo "Empty";     
+                ?>  
+            </div>
+        </div>
+
         <div class="container">
             <div class="row product__metadata">
                 <div class="col-5 clearfix">
@@ -276,14 +259,16 @@
 
     <div class="container mt-5 mb-5">
     <div class="d-flex justify-content-center row bg-white">
-        <div class="d-flex flex-column col-12">
-            
+        <div class="d-flex flex-column col-12" >
+    
             <div class="coment-bottom  p-2 px-4">
-                <div class="d-flex flex-row add-comment-section mt-4 mb-4">
+                <div class="d-flex flex-row add-comment-section mt-4 mb-4" id="comment_box">
                     <img class="img-fluid img-responsive rounded-circle mr-2" src="https://i.imgur.com/qdiP4DB.jpg" width="38">
-                    <input type="text" class="form-control mr-3" placeholder="Add comment">
-                    <button class="btn btn-primary" type="button">Comment</button>
+                    <input type="text" class="form-control mr-3" id="cmt" placeholder="Add comment">
+                    <button class="btn btn-primary" type="button" id="btn_cmt">Comment</button>
                 </div>
+
+
                 <div class="commented-section mt-2">
                     <div class="d-flex flex-row align-items-center commented-user">
                         <h5 class="mr-2">Corey oates</h5><span class="dot mb-1"></span><span class="mb-1 ml-2">4 hours ago</span>
@@ -295,6 +280,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="commented-section mt-2">
                     <div class="d-flex flex-row align-items-center commented-user">
                         <h5 class="mr-2">Samoya Johns</h5><span class="dot mb-1"></span><span class="mb-1 ml-2">5 hours ago</span>
@@ -492,8 +478,10 @@
     <!-- Footer-->
     <?php include 'layout/footer.php'; ?>
 
+    
 
     <!-- Bootstrap core JS-->
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Third party plugin JS-->
@@ -506,6 +494,49 @@
     <script src="js/scripts.js"></script>
     <script src="js/xzoom.min.js"></script>
     <script src="js/product-details.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#btn_cmt").click(function(){
+                var comment = $("#cmt").val().trim();
+                var u_id = $("#user_id").text().trim();
+                var u_name = $("#user_name").text().trim();
+                if(u_id != "Empty" && u_name != "Empty"){
+                    $.ajax({
+                    url: "/products/comment",
+                    method: "POST",
+                    data: {
+                        userId : u_id,
+                        comment_text: comment
+                    },
+                    datatype: "text",
+                    success: function(data) {
+                        console.log(data);
+                        $("#comment_box").after('<div class="commented-section mt-2">\
+                            <div class="d-flex flex-row align-items-center commented-user">\
+                                <h5 class="mr-2">' + u_name +'</h5><span class="dot mb-1"></span><span class="mb-1 ml-2">4 hours ago</span>\
+                            </div>\
+                            <div class="comment-text-sm"><span>' + comment + '</span></div>\
+                            <div class="reply-section">\
+                                <div class="d-flex flex-row align-items-center voting-icons"><i class="fa fa-sort-up fa-2x mt-3 hit-voting"></i><i class="fa fa-sort-down fa-2x mb-3 hit-voting"></i><span class="ml-2">10</span><span class="dot ml-2"></span>\
+                                    <h6 class="ml-2 mt-1">Reply</h6>\
+                                </div>\
+                            </div>\
+                        </div>');
+                            
+                        }
+                    });
+
+                }
+                else {
+                    console.log("Fail");
+                }
+                
+
+            });
+        });
+        
+    </script>
 </body>
 
 </html>

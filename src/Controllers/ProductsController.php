@@ -48,4 +48,15 @@ class ProductsController extends BaseController {
     public function show($id) {
         return $this->view('product-details');
     }
+
+    public function postComment(){
+        $cmt_content = $_POST['comment_text'];
+        $cmt_userId = $_POST['userId'];
+
+        $query = "INSERT INTO comment(content, user_id)
+                    VALUES ( '$cmt_content', $cmt_userId)";
+        $this->database->query($query);  
+
+        return "Success!";
+    }
 }

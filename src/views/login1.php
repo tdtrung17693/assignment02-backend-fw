@@ -1,12 +1,3 @@
-<?php 
-session_start();
-if (isset($_SESSION['id']) && isset($_SESSION['username']))
-
-{
-    header("Location: logged.php");
-    exit();
-}
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -66,7 +57,7 @@ if (isset($_SESSION['id']) && isset($_SESSION['username']))
 
                             <?php }
                             ?>
-                            <form class="form-signin" action="checkLogin.php" method="POST">
+                            <form class="form-signin" action="/doLogin" method="POST">
                                 <div class="form-label-group">
                                     <input type="username" id="username" name="username" class="form-control"
                                         value = "<?php if (isset($_COOKIE["member_login"])){ echo $_COOKIE["member_login"];} ?>" placeholder="Username" required autofocus>

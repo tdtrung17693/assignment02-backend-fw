@@ -17,8 +17,8 @@
     <!-- Core theme CSS (includes Bootstrap)-->
     <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
     <link rel="stylesheet" href="assets/css/owl.theme.default.min.css">
-    <link href="assets/css/home.css" rel="stylesheet" />
-    <link href="assets/css/products.css" rel="stylesheet" />
+    <link href="/assets/css/home.css" rel="stylesheet" />
+    <link href="/assets/css/products.css" rel="stylesheet" />
 </head>
 
 <body id="page-top">

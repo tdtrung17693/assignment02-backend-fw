@@ -18,48 +18,19 @@
     <!-- Core theme CSS (includes Bootstrap)-->
     <link rel="stylesheet" href="/assets/css/owl.carousel.min.css" />
     <link rel="stylesheet" href="/assets/css/owl.theme.default.min.css" />
-    <link href="/assets/css/home.css" rel="stylesheet" />
     <link rel="stylesheet" href="/assets/css/xzoom.css" />
     <link href="/assets/css/product-details.css" rel="stylesheet" />
+    <link href="/assets/css/home.css" rel="stylesheet" />
+
+
+    
+
 </head>
 
 <body id="page-top">
     <!-- Navigation-->
-    <nav class="navbar navbar-expand-lg navbar-dark" id="mainNav">
-        <div class="container">
-            <a class="navbar-brand js-scroll-trigger" href="#page-top"><img src="/assets/images/company.png"
-                    alt="" /></a>
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-                data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
-                aria-label="Toggle navigation">
-                Menu
-                <i class="fas fa-bars ml-1"></i>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav text-uppercase ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/">Homepage</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/products">Products</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/services">Services</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/about-us">About us</a>
-                    </li>
-                    <li class="nav-item"><a class="nav-link " href="/news">News</a></li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/contact">Contact</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/careers">Careers</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <?php include 'layout/header.php'; ?>
+
     <!-- Masthead-->
     <header class="masthead">
         <div class="container">
@@ -443,14 +414,17 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Third party plugin JS-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
+    <script src="/assets/js/owl.carousel.min.js"></script>
     <!-- Contact form JS-->
-    <script src="assets/mail/jqBootstrapValidation.js"></script>
-    <script src="assets/mail/contact_me.js"></script>
+    <script src="/assets/mail/jqBootstrapValidation.js"></script>
+    <script src="/assets/mail/contact_me.js"></script>
     <!-- Core theme JS-->
-    <script src="js/scripts.js"></script>
-    <script src="js/xzoom.min.js"></script>
-    <script src="js/product-details.js"></script>
+    <script src="/assets/js/xzoom.min.js"></script>
+    <script src="/assets/js/product-details.js"></script>
+    <script src="/assets/js/scripts.js"></script>
+
+        
+
 </body>
 
 </html>

@@ -42,7 +42,7 @@
                             <li><span class="text-primary text-medium">3. </span>Use that password to login</li>
                         </ol>
                     </div>
-                    <form class="card mt-4" action="checkForgotPw.php" method="POST">
+                    <form class="card mt-4" action="/checkForgotpw" method="POST">
                         <div class="card-body">
                             <div class="form-group text-black-50"> 
                             <label for="getPass">Enter your email address or phone number</label> 

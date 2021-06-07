@@ -24,6 +24,21 @@ $router->get('/news', NewsController::class, 'index');
 $router->get('/news/detail', NewsController::class, 'show');
 $router->get('/contact', ContactController::class, 'index');
 $router->get('/careers', CareersController::class, 'index');
+
+$router->get('/login1', AuthController::class, 'login');
+$router->get('/register', AuthController::class, 'register');
+$router->get('/forgotpw', AuthController::class, 'forgotpw');
+$router->post('/checkRegister', AuthController::class, 'checkRegister');
+$router->post('/sendRegister', AuthController::class, 'sendRegister');
+$router->post('/doLogin', AuthController::class, 'doLogin');
+$router->get('/logout', AuthController::class, 'logout');
+$router->post('/login', AuthController::class, 'doLogin');
+$router->post('/checkForgotpw', AuthController::class, 'checkForgotpw');
+
+
+
+
+
 // Uncomment when needing guard
 //$router->get('/admin', AdminController::class, 'index')->middleware(AuthMiddleware::class);
 $router->get('/admin', AdminController::class, 'index');
@@ -40,7 +55,5 @@ $router->delete('/admin/products/:id/images/:imgId', AdminProductsController::cl
 $router->get('/admin/users', AdminUsersController::class, 'index');
 $router->get('/admin/users/:id', AdminUsersController::class, 'show');
 
-$router->get('/login', AuthController::class, 'doLogin');
-$router->get('/logout', AuthController::class, 'logout');
 $router->get('/404', ErrorController::class, 'error_404');
 $router->get('/403', ErrorController::class, 'error_403');

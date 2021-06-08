@@ -81,7 +81,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="group row">
+                <!-- <div class="group row">
                     <label for="password" class="col-3 col-form-label text-black-50">Password:</label>
                     <div class="col-9">
                         <input type="password" class="form-control col-9" name="password" id="password"
@@ -92,7 +92,7 @@
                         </div>
                     </div>
 
-                </div>
+                </div> -->
                 <?php if (isset($_GET['wrong']))
                                 { ?>
 

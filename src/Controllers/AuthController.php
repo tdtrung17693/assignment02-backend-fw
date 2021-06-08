@@ -296,6 +296,8 @@ class AuthController extends BaseController {
     }
 
 
+
+
     public function doLogin() {
         $this->sessionManager->start();
 
@@ -401,7 +403,7 @@ class AuthController extends BaseController {
 
             $username = $this->sessionManager->get('username');
 
-            if (strlen($new_pass) < 2 || strlen($new_pass) > 30 || $new_pass != $cf_new_pass)
+            if (strlen($new_pass) < 6 || strlen($new_pass) > 30 || $new_pass != $cf_new_pass)
             {
                 return $this->response->redirect('/changePass?wrong=Please enter valid value!');
  

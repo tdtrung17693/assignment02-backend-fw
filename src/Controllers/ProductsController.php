@@ -72,8 +72,8 @@ class ProductsController extends BaseController
     {
         $searchTerm = $request->input('myInput');
         // $sql = "SELECT * FROM header WHERE concat(dname,link,limage,chip, brand, graph, main) LIKE '%{$searchTerm}%'";
-        $sql = "SELECT * from products LEFT JOIN product_images 
-        ON products.Id = (SELECT MIN(product_images.id)
+        $sql = "SELECT products.id as id, image_path, product_name, product_price from products LEFT JOIN product_images 
+        ON products.id = (SELECT MIN(product_images.id)
       	FROM products WHERE products.Id = product_images.product_Id)
         WHERE concat(product_name, product_brand, product_chip, product_graph) 
         LIKE '%{$searchTerm}%'";

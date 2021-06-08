@@ -31,23 +31,24 @@
 <body id="page-top">
 <?php include 'layout/header.php'; ?>
 
-    <!-- Masthead-->
-    <header class="masthead">
-        <div class="container">
-            <h2 class="section-heading text-uppercase">Products</h2>
-        </div>
-    </header>
-    <br><br>
+<!-- Masthead-->
+<header class="masthead">
     <div class="container">
+        <h2 class="section-heading text-uppercase">Products</h2>
+    </div>
+</header>
+<br><br>
+<div class="container">
 
     <form class="form" id="getusers" action="/products/search" method="post">
-    <div class="input-group input-group-lg mb-3">
-        <input id="myInput" name ="myInput" class="form-control mr-sm-2" type="search" placeholder="Search Products" aria-label="Search">
-        <button id="MyBtn" class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
-    </div>
+        <div class="input-group input-group-lg mb-3">
+            <input id="myInput" name="myInput" class="form-control mr-sm-2" type="search" placeholder="Search Products"
+                   aria-label="Search">
+            <button id="MyBtn" class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
+        </div>
 
     </form>
-    </div>
+</div>
 
 <div class="container" id="filter">
 </div>
@@ -224,27 +225,27 @@
     </div>
 </section>
 
-    <!-- Footer-->
-    <?php include 'layout/footer.php'; ?>
+<!-- Footer-->
+<?php include 'layout/footer.php'; ?>
 
 
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script type="text/javascript">
+    let frm = $('#getusers');
+    let result;
+    let searchTerm = "";
+    let pageNumber = 2;
+    let pageSize = 12;
 
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-    <script type="text/javascript">
-        let frm = $('#getusers');
-        let result;
-        let searchTerm="";
-        let pageNumber = 2;
-        let pageSize = 12;
-        function showResult(data){
-            let result = data;
-            let search = "";
-            console.log(result);
-            if (searchTerm=='') search = 'All products';
-            else search = '"'+searchTerm+'"';
-            document.getElementById('records').innerHTML =' <div class="row">\
+    function showResult(data) {
+        let result = data;
+        let search = "";
+        console.log(result);
+        if (searchTerm == '') search = 'All products';
+        else search = '"' + searchTerm + '"';
+        document.getElementById('records').innerHTML = ' <div class="row">\
                         <div class="col-12">\
-                            <h2>Search results for '+search+'</h2>\
+                            <h2>Search results for ' + search + '</h2>\
                         </div>\
                         <div class="product-carousel owl-carousel col-12">';
 
@@ -254,11 +255,11 @@
                 document.getElementById('records').innerHTML += '<div class="product col-12 row">\
                                     <div class="col-5">\
                                         <div class="product__thumbnail">\
-                                            <img src="' + result[i]["Image_path"] + '" alt="' + result[i]["product_name"] + '">\
+                                            <img src="' + (result[i]["image_path"]|| '/assets/images/default-product-image.png')  + '" alt="' + result[i]["product_name"] + '">\
                                         </div>\
                                     </div>\
                                     <div class="product__info col-7">\
-                                        <h3 class="product__name"><a href="./product-details.html">' + result[i]["product_name"] + '</a></h3>\
+                                        <h3 class="product__name"><a href="/products/'+  result[i]['id'] + '">' + result[i]["product_name"] + '</a></h3>\
                                         <div class="product__price-box"><span class="product__price">' + new Intl.NumberFormat().format(result[i]["product_price"]) + ' VND</span></div>\
                                     </div>\
                                 </div>';
@@ -268,11 +269,11 @@
                 document.getElementById('records').innerHTML += '<div class="product col-12 row">\
                                     <div class="col-5">\
                                         <div class="product__thumbnail">\
-                                            <img src="' + result[i]["Image_path"] + '" alt="' + result[i]["product_name"] + '">\
+                                            <img src="' + (result[i]["image_path"]|| '/assets/images/default-product-image.png')  + '" alt="' + result[i]["product_name"] + '">\
                                         </div>\
                                     </div>\
                                     <div class="product__info col-7">\
-                                        <h3 class="product__name"><a href="./product-details.html">' + result[i]["product_name"] + '</a></h3>\
+                                        <h3 class="product__name"><a href="/products/'+ result[i]['id'] + '">' + result[i]["product_name"] + '</a></h3>\
                                         <div class="product__price-box"><span class="product__price">' + new Intl.NumberFormat().format(result[i]["product_price"]) + ' VND</span></div>\
                                     </div>\
                                 </div>';
@@ -282,11 +283,11 @@
                 document.getElementById('records').innerHTML += '<div class="product col-12 row">\
                                     <div class="col-5">\
                                         <div class="product__thumbnail">\
-                                            <img src="' + result[i]["Image_path"] + '" alt="' + result[i]["product_name"] + '">\
+                                            <img src="' + (result[i]["image_path"]|| '/assets/images/default-product-image.png')  + '" alt="' + result[i]["product_name"] + '">\
                                         </div>\
                                     </div>\
                                     <div class="product__info col-7">\
-                                        <h3 class="product__name"><a href="./product-details.html">' + result[i]["product_name"] + '</a></h3>\
+                                        <h3 class="product__name"><a href="/products/' + result[i]['id'] +  '">' + result[i]["product_name"] + '</a></h3>\
                                         <div class="product__price-box"><span class="product__price">' + new Intl.NumberFormat().format(result[i]["product_price"]) + ' VND</span></div>\
                                     </div>\
                                 </div>';
@@ -377,45 +378,46 @@
                 </div>\
             </div>\
         </div>';
-        }
-        frm.submit(function (e) {
-            searchTerm = $('#myInput').val()
-            e.preventDefault();  
+    }
+
+    frm.on('submit', function (e) {
+        e.preventDefault();
+        searchTerm = $('#myInput').val()
+        $.ajax({
+            type: 'get',
+            url: '/products/search',
+            data: {pageSize, pageNumber},
+            dataType: 'json',
+            data: frm.serialize(),
+            success: function (data) {
+                console.log('Submission was successful.');
+                result = data;
+                console.log(data);
+                showResult(data);
+                showFilterTable();
+            },
+            error: function (data) {
+                console.log('An error occurred.');
+                console.log(data);
+            },
+        });
+    });
+
+    $(function () {
+        $('.js-load-more').on('click', function (event) {
+            event.preventDefault();
             $.ajax({
                 type: 'get',
                 url: '/products/more',
-                data: { pageSize, pageNumber },
+                data: {pageSize, pageNumber},
                 dataType: 'json',
-                data: frm.serialize(),
-                success: function (data) {
-                    console.log('Submission was successful.');
-                    result = data;
-                    console.log(data);
-                    showResult(data);
-                    showFilterTable();
-                },
-                error: function (data) {
-                    console.log('An error occurred.');
-                    console.log(data);
-                },
-            });
-        });
+                success: data => {
+                    console.log(data)
+                    if (!data.loadMore) {
+                        $(this).remove();
+                    }
 
-        $(function () {
-            $('.js-load-more').on('click', function (event) {
-                event.preventDefault();
-                $.ajax({
-                    type: 'get',
-                    url: '/products/more',
-                    data: { pageSize, pageNumber },
-                    dataType: 'json',
-                    success: data => {
-                        console.log(data)
-                        if (!data.loadMore) {
-                            $(this).remove();
-                        }
-
-                        const productTmpl = `
+                    const productTmpl = `
                     <div class="col-3 border border-1 p-4">
                         <div>
                             <div class="product__thumbnail mb-4">
@@ -432,24 +434,24 @@
                     </div>
                     `;
 
-                        let products = "";
-                        data.products.forEach(product => {
-                            products += productTmpl
-                                .replaceAll("{productImage}", product.image_path || '/assets/images/default-product-image.png')
-                                .replaceAll("{productName}", product.product_name)
-                                .replaceAll("{productPrice}", product.product_price)
-                        })
+                    let products = "";
+                    data.products.forEach(product => {
+                        products += productTmpl
+                            .replaceAll("{productImage}", product.image_path || '/assets/images/default-product-image.png')
+                            .replaceAll("{productName}", product.product_name)
+                            .replaceAll("{productPrice}",  new Intl.NumberFormat('vn-VN').format(product.product_price))
+                    })
 
-                        $('.products > .row').append(products)
-                        pageNumber += 1;
-                    },
-                    error: function (data) {
-                        console.log('Error occurred', data);
-                    }
-                })
+                    $('.products > .row').append(products)
+                    pageNumber += 1;
+                },
+                error: function (data) {
+                    console.log('Error occurred', data);
+                }
             })
         })
-    </script>
+    })
+</script>
 
 <!-- Bootstrap core JS-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

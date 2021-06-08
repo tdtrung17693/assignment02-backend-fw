@@ -17,7 +17,7 @@ use Controllers\Admin\UsersController as AdminUsersController;
 $router->get('/', HomeController::class, 'index');
 $router->get('/products', ProductsController::class, 'index');
 $router->get('/products/more', ProductsController::class, 'loadMore');
-$router->post('/products/search', ProductsController::class, 'search');
+$router->get('/products/search', ProductsController::class, 'search');
 $router->get('/products/:id', ProductsController::class, 'show');
 $router->post('/products/:id/comment', ProductsController::class, 'postComment');
 $router->get('/services', ServicesController::class, 'index');

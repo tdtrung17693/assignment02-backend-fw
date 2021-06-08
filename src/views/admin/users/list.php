@@ -1,6 +1,6 @@
 <?php
 /**
- * @var array $products
+ * @var array $users
  * @var array $pagination
  * @var string $searchTerm
  */
@@ -9,7 +9,7 @@
 
 <div class="row g-3 mb-4 align-items-center justify-content-between">
     <div class="col-auto">
-        <h1 class="app-page-title mb-0">Products <a class="btn-sm btn btn-primary text-white" href="/admin/products/new">New</a></h1>
+        <h1 class="app-page-title mb-0">Users</h1>
     </div>
     <div class="col-auto">
         <div class="page-utilities">
@@ -37,19 +37,23 @@
                     <table class="table app-table-hover mb-0 text-left">
                         <thead>
                             <tr>
-                                <th class="cell">Product</th>
-                                <th class="cell">Price</th>
-                                <th class="cell">Action</th>
+                                <th class="cell">Username</th>
+                                <th class="cell">E-mail</th>
+                                <th class="cell">First Name</th>
+                                <th class="cell">Last Name</th>
+                                <th class="cell">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                        <?php foreach($products as $product) : ?>
+                        <?php foreach($users as $user) : ?>
                         <tr>
-                            <td class="cell"><a href="/admin/products/<?= $product['id'] ?>"><?= $product['product_name'] ?></a></td>
-                            <td class="cell"><?= number_format($product['product_price'], 0, ',', '.') ?></td>
+                            <td class="cell"><a href="/admin/users/<?= $user['id'] ?>"><?= $user['username'] ?></a></td>
+                            <td class="cell"><?= $user['email'] ?></td>
+                            <td class="cell"><?= $user['fname'] ?></td>
+                            <td class="cell"><?= $user['lname'] ?></td>
                             <td class="cell">
-                                <a class="btn-sm app-btn-secondary" href="/admin/products/<?= $product['id'] ?>">View</a>
-                                <a class="btn-sm btn-danger text-white js-btn-product-delete" href="#" data-id="<?= $product['id']?>">Delete</a>
+                                <a class="btn-sm app-btn-secondary" href="/admin/users/<?= $user['id'] ?>">View</a>
+                                <a class="btn-sm btn-danger text-white js-btn-user-delete" href="#" data-id="<?= $user['id']?>">Delete</a>
                             </td>
                         </tr>
                         <?php endforeach; ?>
@@ -62,17 +66,17 @@
         <nav class="app-pagination">
             <ul class="pagination justify-content-center">
                 <li class="page-item<?= !$pagination['prev'] ? ' disabled' : '' ?>" >
-                    <a class="page-link" href="/admin/products?pageNumber=<?= $pagination['current'] - 1; ?><?= $searchTerm ? "&searchTerm=$searchTerm" : ""?>" tabindex="-1" aria-disabled="true">Previous</a>
+                    <a class="page-link" href="/admin/users?pageNumber=<?= $pagination['current'] - 1; ?><?= $searchTerm ? "&searchTerm=$searchTerm" : ""?>" tabindex="-1" aria-disabled="true">Previous</a>
                 </li>
                 <?php foreach($pagination['display'] as $page) : ?>
                     <?php if ($page == '...'): ?>
                         <li class="page-item"><a class="page-link disabled" href="">&hellip;</a></li>
                     <?php else : ?>
-                        <li class="page-item<?= $pagination['current'] == $page ? ' active' : '' ?>"><a class="page-link" href="/admin/products?pageNumber=<?= $page ?><?= $searchTerm ? "&searchTerm=$searchTerm" : ""?>"><?= $page ?></a></li>
+                        <li class="page-item<?= $pagination['current'] == $page ? ' active' : '' ?>"><a class="page-link" href="/admin/users?pageNumber=<?= $page ?><?= $searchTerm ? "&searchTerm=$searchTerm" : ""?>"><?= $page ?></a></li>
                     <?php endif; ?>
                 <?php endforeach; ?>
                 <li class="page-item<?= !$pagination['next'] ? ' disabled' : '' ?>" >
-                    <a class="page-link" href="/admin/products?pageNumber=<?= $pagination['current'] + 1; ?><?= $searchTerm ? "&searchTerm=$searchTerm" : ""?>" tabindex="-1" aria-disabled="true">Next</a>
+                    <a class="page-link" href="/admin/users?pageNumber=<?= $pagination['current'] + 1; ?><?= $searchTerm ? "&searchTerm=$searchTerm" : ""?>" tabindex="-1" aria-disabled="true">Next</a>
                 </li>
             </ul>
         </nav><!--//app-pagination-->

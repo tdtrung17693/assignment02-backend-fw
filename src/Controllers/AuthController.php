@@ -1,18 +1,22 @@
 <?php
+
 namespace Controllers;
 
 use Database;
 
-class AuthController extends BaseController {
+class AuthController extends BaseController
+{
     protected \SessionManager $sessionManager;
     protected Database $database;
-    public function __construct(Database $database, \SessionManager  $sessionManager)
+
+    public function __construct(Database $database, \SessionManager $sessionManager)
     {
         $this->database = $database;
         $this->sessionManager = $sessionManager;
     }
 
-    public function login() {
+    public function login()
+    {
         return $this->view('login1');
     }
 
@@ -37,66 +41,52 @@ class AuthController extends BaseController {
 
     public function checkRegister()
     {
-        if (isset($_POST['check_fname']))
-        {
+        if (isset($_POST['check_fname'])) {
             $fname = $_POST['check_fname'];
-            if(strlen($fname) < 2 || strlen($fname) > 30) {
+            if (strlen($fname) < 2 || strlen($fname) > 30) {
 
                 return '<span class="text-danger"> Firstname: 2 - 30 characters!  </span>';
-            }
-            else
-            {
+            } else {
                 return '';
             }
         }
-        if (isset($_POST['check_lname']))
-        {
+        if (isset($_POST['check_lname'])) {
             $lname = $_POST['check_lname'];
-            if(strlen($lname) < 2 || strlen($lname) > 30) {
+            if (strlen($lname) < 2 || strlen($lname) > 30) {
 
                 return '<span class="text-danger"> Lastname: 2 - 30 characters!   </span>';
-            }
-            else
-            {
+            } else {
                 return '';
             }
-        
+
         }
 
-        if (isset($_POST['check_pass']))
-        {
+        if (isset($_POST['check_pass'])) {
             $pass = $_POST['check_pass'];
-            if(strlen($pass) < 6 || strlen($pass) > 30) {
+            if (strlen($pass) < 6 || strlen($pass) > 30) {
 
                 return '<span class="text-danger"> Password: 6 - 30 characters!   </span>';
-            }
-            else
-            {
+            } else {
                 return '';
             }
         }
 
-        if (isset($_POST['confirm']))
-        {
+        if (isset($_POST['confirm'])) {
 
-            $pass =  $_POST['cf_pass'];
-            $cf =  $_POST['confirm'];
+            $pass = $_POST['cf_pass'];
+            $cf = $_POST['confirm'];
 
-            if ($pass != $cf || strlen($pass) == 0)
-            {
+            if ($pass != $cf || strlen($pass) == 0) {
 
                 return '<span class="text-danger"> Missmatch password!  </span>';
-            }
-            else
-            {
+            } else {
                 return '';
             }
 
         }
 
 
-        if (isset($_POST['user_name']))
-        {
+        if (isset($_POST['user_name'])) {
             $username = $_POST['user_name'];
             if (strlen($username) < 3 || strlen($username) > 30)
             {
@@ -106,62 +96,48 @@ class AuthController extends BaseController {
             {
                 $query = "SELECT * FROM  users WHERE  username ='$username'";
                 $result = $this->database->query($query);
-                if (mysqli_num_rows($result) > 0)
-                {
+                if (mysqli_num_rows($result) > 0) {
 
-                    return  '<span class="text-danger"> Username is already exits </span>';
-                    
-                }
-                else
-                {
+                    return '<span class="text-danger"> Username is already exits </span>';
+
+                } else {
                     return '<span class="text-success"> Username is available </span>';
                 }
             }
         }
 
-        if (isset($_POST['phone_num']))
-        {
+        if (isset($_POST['phone_num'])) {
             $phonenum = $_POST['phone_num'];
 
-            if (strlen($phonenum) == 0)
-            {
+            if (strlen($phonenum) == 0) {
                 return '<span class="text-danger"> Please enter your phone number! </span>';
-            }
-            else
-            {
+            } else {
                 $query = "SELECT * FROM  users WHERE  phonenum ='$phonenum'";
                 $result = $this->database->query($query);
                 $row = $result->fetch_assoc();
                 if (mysqli_num_rows($result) > 0 && $row['phonenum'] != $_SESSION['phonenum'])
                 {
                     return '<span class="text-danger"> Phone number is already registered for another account</span>';
-                }
-                else
-                {
-                    
+                } else {
+
                     return '';
                 }
             }
 
         }
-        if (isset($_POST['check_email']))
-        {
-            
+        if (isset($_POST['check_email'])) {
+
             $email = $_POST['check_email'];
             $check = preg_match("/^.*@.*\..*/i", $email);
-        
-            if (strlen($email) == 0)
-            {
+
+            if (strlen($email) == 0) {
 
                 return '<span class="text-danger"> Please enter your email!</span>';
 
-            }
-            elseif($check == 0) {
+            } elseif ($check == 0) {
 
                 return '<span class="text-danger"> Email must follow this format: sth@sth.sth! </span>';
-            }
-            else
-            {
+            } else {
                 $query = "SELECT * FROM  users WHERE  email ='$email'";
                 $result = $this->database->query($query);
                 $row = $result->fetch_assoc();
@@ -170,9 +146,7 @@ class AuthController extends BaseController {
                 {
 
                     return '<span class="text-danger"> Email is already registered for another account</span>';
-                }
-                else
-                {
+                } else {
                     return '<span class="text-success"> Email is available </span>';
 
                 }
@@ -195,111 +169,83 @@ class AuthController extends BaseController {
             $y = $_POST['year'];
             $address = $_POST['address'];
     
-            $bdate = "$m $day $year";
-            $bd  = date("Y-m-d",strtotime($bdate));   
+            $bdate = "$m $day $y";
+            $bd  = date("Y-m-d",strtotime($bdate));
             $password = md5($password1);
             $cf =  $_POST['confirmpassword'];
 
-            $checkMail = preg_match("/^.*@.*\..*/i", $email);
+        $checkMail = preg_match("/^.*@.*\..*/i", $email);
 
 
+        $check = true;
+        if (strlen($fname) < 2 || strlen($fname) > 30) {
+            $check = false;
+
+        } elseif (strlen($lname) < 2 || strlen($lname) > 30) {
+            $check = false;
+
+        } elseif (strlen($password1) < 6 || strlen($password1) > 30) {
+            $check = false;
+
+        } elseif ($password1 != $cf || strlen($password1) == 0) {
+            $check = false;
+
+        } elseif ($password1 != $cf || strlen($password1) == 0) {
+            $check = false;
+
+        } elseif (strlen($username) == 0) {
+            $check = false;
+
+        } elseif (strlen($username) != 0) {
+            $query = "SELECT * FROM  users WHERE  username ='$username'";
+            $result = $this->database->query($query);
+            if (mysqli_num_rows($result) > 0) {
+                $check = false;
+
+            }
+        } elseif (strlen($phonenumber) == 0) {
+            $check = false;
+
+
+        } elseif (strlen($phonenumber) != 0) {
+            $query = "SELECT * FROM  users WHERE  phonenum ='$phonenumber'";
+            $result = $this->database->query($query);
+
+            if (mysqli_num_rows($result) > 0) {
+                $check = false;
+
+            }
+        } elseif ($checkMail == 0) {
+            $check = false;
+
+
+        } elseif ($checkMail == 0) {
+            $query = "SELECT * FROM  users WHERE  email ='$email'";
+            $result = $this->database->query($query);
+            if (mysqli_num_rows($result) > 0) {
+                $check = false;
+
+            }
+        } else {
             $check = true;
-            if(strlen($fname) < 2 || strlen($fname) > 30) {
-                $check = false;
-        
-            }
-            elseif(strlen($lname) < 2 || strlen($lname) > 30) {
-                $check = false;
 
-            }
+        }
 
-            elseif(strlen($password1) < 6 || strlen($password1) > 30) {
-                $check = false;
-
-            }
-            elseif ($password1 != $cf || strlen($password1) == 0)
-            {
-                $check = false;
-
-            }
-
-            elseif ($password1 != $cf || strlen($password1) == 0)
-            {
-                $check = false;
-
-            }
-
-            elseif (strlen($username) == 0)
-            {
-                $check = false;
-
-            }
-            elseif (strlen($username) != 0)
-            {
-                $query = "SELECT * FROM  users WHERE  username ='$username'";
-                $result = $this->database->query($query);
-                if (mysqli_num_rows($result) > 0)
-                {
-                    $check = false;
-
-                }
-            }
-            elseif (strlen($phonenumber) == 0)
-            {
-                $check = false;
-
-        
-            }
-            elseif (strlen($phonenumber) != 0)
-            {
-                $query = "SELECT * FROM  users WHERE  phonenum ='$phonenumber'";
-                $result = $this->database->query($query);
-                
-                if (mysqli_num_rows($result) > 0)
-                {
-                    $check = false;
-
-                }
-            }
-            elseif($checkMail == 0) {
-                $check = false;
-
-        
-            }
-            elseif($checkMail == 0) 
-            {
-                $query = "SELECT * FROM  users WHERE  email ='$email'";
-                $result = $this->database->query($query);
-                if (mysqli_num_rows($result) > 0)
-                {
-                    $check = false;
-
-                }
-            }
-            else{
-                $check = true;
-
-            }
-
-        if ($check)
-        {
+        if ($check) {
             $query = "INSERT INTO users (fname,lname,phonenum,email,username,password,bdate,address) 
                     VALUES ('$fname','$lname','$phonenumber','$email','$username','$password','$bd','$address')";
-            $this->database->query($query);    
 
-            return $this->response->redirect('/login1?inform=Create account successfully - Login now!');
+            if ($this->database->query($query)) {
+                return $this->response->redirect('/login1?inform=Create account successfully - Login now!');
+            } else {
+                error_log($this->database->error);
+                return $this->response->redirect('/register?error=Unexpected error occurred!');
+            }
 
-        }
-        else
-        {
+        } else {
             return $this->response->redirect('/register?error=Please enter valid infomation!');
-
         }
     }
-
-
-
-
 
 
     public function doLogin() {
@@ -314,29 +260,24 @@ class AuthController extends BaseController {
         $sql = "SELECT * FROM users WHERE  username ='$uname'";
         $result = $this->database->query($sql);
 
-        if (mysqli_num_rows($result) === 1)
-        {
+        if (mysqli_num_rows($result) === 1) {
             $row = $result->fetch_assoc();
-            if ($row['username'] == $uname && $row['password'] === $password)
-            {
-                if (!empty($_POST['remember_me']))
-                {
-                    setcookie("member_login",$uname,time()+ (10 * 365 * 24  * 60 * 60));
-                    setcookie("member_password",$password1,time()+ (10 * 365 * 24  * 60 * 60));
-                }
-                else 
-                {
-                    if (isset($_COOKIE['member_login']))
-                    {
-                        setcookie("member_login","");
+            if ($row['username'] == $uname && $row['password'] === $password) {
+                if (!empty($_POST['remember_me'])) {
+                    setcookie("member_login", $uname, time() + (10 * 365 * 24 * 60 * 60));
+                    setcookie("member_password", $password1, time() + (10 * 365 * 24 * 60 * 60));
+                } else {
+                    if (isset($_COOKIE['member_login'])) {
+                        setcookie("member_login", "");
                     }
-                    if (isset($_COOKIE['member_password']))
-                    {
-                        setcookie("member_password","");
+                    if (isset($_COOKIE['member_password'])) {
+                        setcookie("member_password", "");
                     }
                 }
-                $this->sessionManager->set('username',$row['username']);
-                $this->sessionManager->set('id',$row['id']);
+                $this->sessionManager->set('username', $row['username']);
+                $this->sessionManager->set('id', $row['id']);
+                $this->sessionManager->set('is_admin', $row['is_admin']);
+
                 $this->sessionManager->set('fname',$row['fname']);
                 $this->sessionManager->set('lname',$row['lname']);
                 $this->sessionManager->set('phonenum',$row['phonenum']);
@@ -347,16 +288,11 @@ class AuthController extends BaseController {
                 $this->sessionManager->set('address',$row['address']);
 
                 return $this->response->redirect('/');
-            }
-            else
-            {
+            } else {
                 return $this->response->redirect('/login1?wrong=Incorrect User Name or Password');
 
             }
-        }
-
-        else
-        {
+        } else {
             return $this->response->redirect('/login1?wrong=Incorrect User Name or Password');
         }
     }
@@ -395,7 +331,7 @@ class AuthController extends BaseController {
 
     public function doChangePass()
     {
-        
+
             $current_pass = $_POST['currentpass'];
             $cur_pass = md5($current_pass);
 
@@ -410,7 +346,7 @@ class AuthController extends BaseController {
             if (strlen($new_pass) < 6 || strlen($new_pass) > 30 || $new_pass != $cf_new_pass)
             {
                 return $this->response->redirect('/changePass?wrong=Please enter valid value!');
- 
+
             }
             $sql = "SELECT password  FROM users WHERE username = '$username'";
             $result = $this->database->query($sql);
@@ -419,7 +355,7 @@ class AuthController extends BaseController {
             if (mysqli_num_rows($result) === 0 || $row['password'] != $cur_pass)
             {
                 return $this->response->redirect('/changePass?wrong=Incorrect Current Password');
- 
+
             }
             else
             {
@@ -455,22 +391,25 @@ class AuthController extends BaseController {
 
         // get cureent username's password
         $sqlPass = "SELECT * FROM  users WHERE  username ='$username'";
-        $result_pass = $this->database->query($sqlPass); 
+        $result_pass = $this->database->query($sqlPass);
         $row_pass = $result_pass->fetch_assoc();
-        
+
 
         // check if new phone number exists  
         $query = "SELECT * FROM  users WHERE  phonenum ='$phonenum'";
         $result = $this->database->query($query);
-        
-        //check if new email exists
+
+
         $sql = "SELECT * FROM  users WHERE  email ='$email'";
         $result_mail = $this->database->query($sql);
-              
-        if (strlen($fname) > 30 
-        || strlen($fname) < 2 
-        ||strlen($lname) > 30 
-        || strlen($lname) < 2 
+
+
+
+
+        if (strlen($fname) > 30
+        || strlen($fname) < 2
+        ||strlen($lname) > 30
+        || strlen($lname) < 2
         || !$checkMail)
         {
             return $this->response->redirect('/info?error=Please enter valid infomation 1!');
@@ -489,7 +428,10 @@ class AuthController extends BaseController {
             $row = $result_mail->fetch_assoc();
 
             if ($row['email'] != $_SESSION['email'])
-            {        
+            {
+                // echo $row['email'].'\n';
+                // echo $_SESSION['email'];
+
                 return $this->response->redirect('/info?error=Please enter valid infomation 3!');
             }
         }
@@ -505,6 +447,10 @@ class AuthController extends BaseController {
         
         
         // update database
+
+
+
+
         $update = "UPDATE users SET fname = '$fname', lname = '$lname', phonenum='$phonenum', bdate ='$bdate',address='$address',email='$email'  
         WHERE username = '$username'";
         $this->database->query($update);
@@ -522,7 +468,7 @@ class AuthController extends BaseController {
         return $this->response->redirect('/info?success=Change info successfully!!');
 
 
-        
+
 
     }
 
@@ -533,19 +479,16 @@ class AuthController extends BaseController {
         $getPass = $_POST['getPass'];
         $sql = "SELECT * FROM users WHERE  phonenum = '$getPass' OR email = '$getPass'";
         $result = $this->database->query($sql);
-        if (mysqli_num_rows($result) === 1)
-        {
+        if (mysqli_num_rows($result) === 1) {
             return $this->response->redirect('/login1?success=Success! Check your email to get password');
 
-        }
-        else
-        {
+        } else {
             return $this->response->redirect('/forgotpw?error= Can not find your account!');
         }
     }
 
-
-    public function logout() {
+    public function logout()
+    {
         $this->sessionManager->destroy();
         return $this->response->redirect('/login1');
     }

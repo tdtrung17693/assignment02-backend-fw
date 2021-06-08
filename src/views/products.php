@@ -1,24 +1,31 @@
+<?php
+/**
+ * @var array $newProducts
+ * @var array $products
+ */
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
     <title>Andy Company</title>
-    <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico"/>
     <!-- Font Awesome icons (free version)-->
     <script src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" crossorigin="anonymous"></script>
     <!-- Google fonts-->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
-    <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
-    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css"/>
+    <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic" rel="stylesheet"
+          type="text/css"/>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css"/>
     <!-- Core theme CSS (includes Bootstrap)-->
     <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
     <link rel="stylesheet" href="assets/css/owl.theme.default.min.css">
-    <link href="assets/css/home.css" rel="stylesheet" />
-    <link href="assets/css/products.css" rel="stylesheet" />
+    <link href="assets/css/home.css" rel="stylesheet"/>
+    <link href="assets/css/products.css" rel="stylesheet"/>
 </head>
 
 <body id="page-top">
@@ -32,289 +39,190 @@
     </header>
     <br><br>
     <div class="container">
-    
+
     <form class="form" id="getusers" action="/products/search" method="post">
     <div class="input-group input-group-lg mb-3">
         <input id="myInput" name ="myInput" class="form-control mr-sm-2" type="search" placeholder="Search Products" aria-label="Search">
         <button id="MyBtn" class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
     </div>
-    
+
     </form>
     </div>
 
-   
-    <div class="container" id = "filter">
-    </div>
-    <script> 
-            var filter_list = new Array;
-            function filter(tag){
-                if (result){
-                    // console.log(result);
-                    for (var i=0;i<filter_list.length;i++){
-                        if (filter_list[i]==tag){
-                            return;
-                        }
-                    }
-                    // console.log()
-                    filter_list.push(tag);
-                    showFilter();
-                    // console.log(filter_list);
-                    updateResult();
+<div class="container" id="filter">
+</div>
+<script>
+    var filter_list = new Array;
+
+    function filter(tag) {
+        if (result) {
+            // console.log(result);
+            for (var i = 0; i < filter_list.length; i++) {
+                if (filter_list[i] == tag) {
                     return;
                 }
-                console.log(filter_list);
             }
+            // console.log()
+            filter_list.push(tag);
+            showFilter();
+            // console.log(filter_list);
+            updateResult();
+            return;
+        }
+        console.log(filter_list);
+    }
 
-            function showFilter(){
-                if (filter_list)
-                    document.getElementById('filter-tags-list').innerHTML=""; 
-                    for (var i = 0; i<filter_list.length;i++){
-                        document.getElementById('filter-tags-list').innerHTML+='\
-                            <button type="button" class="btn btn-secondary btn-sm" onclick="removeFilter(\''+
-                            filter_list[i] + '\')">' + filter_list[i]+'</button>';
-                        console.log(document.getElementById('filter-tags-list').innerHTML);
-                    }
+    function showFilter() {
+        if (filter_list)
+            document.getElementById('filter-tags-list').innerHTML = "";
+        for (var i = 0; i < filter_list.length; i++) {
+            document.getElementById('filter-tags-list').innerHTML += '\
+                            <button type="button" class="btn btn-secondary btn-sm" onclick="removeFilter(\'' +
+                filter_list[i] + '\')">' + filter_list[i] + '</button>';
+            console.log(document.getElementById('filter-tags-list').innerHTML);
+        }
+    }
+
+    function removeFilter(tag) {
+        for (var i = 0; i < filter_list.length; i++) {
+            if (filter_list[i] == tag) {
+                filter_list.splice(i, 1);
+                showFilter();
+                updateResult(result);
+                console.log(result);
+                return;
             }
-            function removeFilter(tag){
-                for (var i=0;i<filter_list.length;i++){
-                    if (filter_list[i]==tag){
-                        filter_list.splice(i,1);
-                        showFilter();
-                        updateResult(result);
-                        console.log(result);
-                        return;
-                    }
-                }
-            }
-            function updateResult(){
-                var temp = Array.from(result);
-                for (var i = 0; i<temp.length;i++){
-                    var bigFlag = true;
-                    for (var j = 0; j<filter_list.length;j++){
-                        var flag=false;
-                        var cat=filter_list[j].split('-')[0];
-                        var val=filter_list[j].split('-')[1];
-                        switch (cat){
-                            case 'Brand':
-                                if (temp[i]['product_brand'].split(' ')[0]==val) {
-                                    flag = true;
-                                    console.log('a'+temp[i]['product_brand'].split(' ')[0]+'a');
-                                    console.log('b'+val+'b');
-                                }
-                                break;
-                            case 'Color':
-                                if (temp[i]['product_color'].split(' ')[0]==val) flag = true;
-                                break;
-                            case 'CPU':
-                                if (temp[i]['product_chip'].split(' ')[0]==val) flag = true;
-                                break;
-                            case 'Graphic':
-                                if (temp[i]['product_graph'].split(' ')[0]==val) flag = true;
-                                break;
-                            case 'Mainboard':
-                                if (temp[i]['product_main'].split(' ')[0]==val) flag = true;
-                                break;
-                            default: return;
+        }
+    }
+
+    function updateResult() {
+        var temp = Array.from(result);
+        for (var i = 0; i < temp.length; i++) {
+            var bigFlag = true;
+            for (var j = 0; j < filter_list.length; j++) {
+                var flag = false;
+                var cat = filter_list[j].split('-')[0];
+                var val = filter_list[j].split('-')[1];
+                switch (cat) {
+                    case 'Brand':
+                        if (temp[i]['product_brand'].split(' ')[0] == val) {
+                            flag = true;
+                            console.log('a' + temp[i]['product_brand'].split(' ')[0] + 'a');
+                            console.log('b' + val + 'b');
                         }
-                        if (flag==false) bigFlag = false;
-
-                    }
-                    if (bigFlag==false) {
-                        temp.splice(i,1);
-                        i--;
-                    }
+                        break;
+                    case 'Color':
+                        if (temp[i]['product_color'].split(' ')[0] == val) flag = true;
+                        break;
+                    case 'CPU':
+                        if (temp[i]['product_chip'].split(' ')[0] == val) flag = true;
+                        break;
+                    case 'Graphic':
+                        if (temp[i]['product_graph'].split(' ')[0] == val) flag = true;
+                        break;
+                    case 'Mainboard':
+                        if (temp[i]['product_main'].split(' ')[0] == val) flag = true;
+                        break;
+                    default:
+                        return;
                 }
-                showResult(temp);
+                if (flag == false) bigFlag = false;
+
             }
-        </script>
+            if (bigFlag == false) {
+                temp.splice(i, 1);
+                i--;
+            }
+        }
+        showResult(temp);
+    }
+</script>
 
-    <!-- Search Result -->
-    <div class="container" id ="records"></div> 
+<!-- Search Result -->
+<div class="container" id="records"></div>
 
 
-    <!-- Product -->
-    <section class="page-section bg-light" id="products">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <h2 class="text-center">Brands</h2>
+<!-- Product -->
+<section class="page-section bg-light" id="products">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="text-center">Brands</h2>
+            </div>
+            <div class="brands col-12">
+                <div class="brand">
+                    <a href="#"><img src="assets/images/dell.png" alt="asus"></a>
                 </div>
-                <div class="brands col-12">
-                    <div class="brand">
-                        <a href="#"><img src="assets/images/dell.png" alt="asus"></a>
-                    </div>
-                    <div class="brand">
-                        <a href="#"><img src="assets/images/hp.png" alt="asus"></a>
-                    </div>
-                    <div class="brand">
-                        <a href="#"><img src="assets/images/asus.png" alt="asus"></a>
-                    </div>
-                    <div class="brand">
-                        <a href="#"><img src="assets/images/msi.png" alt="asus"></a>
-                    </div>
-                    <div class="brand">
-                        <a href="#"><img src="assets/images/acer.png" alt="asus"></a>
-                    </div>
+                <div class="brand">
+                    <a href="#"><img src="assets/images/hp.png" alt="asus"></a>
+                </div>
+                <div class="brand">
+                    <a href="#"><img src="assets/images/asus.png" alt="asus"></a>
+                </div>
+                <div class="brand">
+                    <a href="#"><img src="assets/images/msi.png" alt="asus"></a>
+                </div>
+                <div class="brand">
+                    <a href="#"><img src="assets/images/acer.png" alt="asus"></a>
                 </div>
             </div>
         </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <h2>Our Bestseller</h2>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2>New Products</h2>
+            </div>
+            <div class="product-carousel owl-carousel col-12">
+                <?php foreach ($newProducts as $index => $product) : ?>
+                    <?php $imageLink = $product['image_path'] ?? '/assets/images/default-product-image.png' ?>
+                    <div class="product col-12 row">
+                        <div class="col-5">
+                            <div class="product__thumbnail">
+                                <img src="<?= $imageLink ?>" alt="<?= $product['product_name']; ?>">
+                            </div>
+                        </div>
+                        <div class="product__info col-7">
+                            <h3 class="product__name"><a
+                                        href="/products/<?= $product['id']; ?>"><?= $product['product_name'] ?></a></h3>
+                            <div class="product__price-box"><span
+                                        class="product__price"><?= number_format($product['product_price'], 0, ',', '.') ?> VND</span>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12"><h2>All Products</h2></div>
+            <div class="products col-12">
+                <div class="row">
+                    <?php foreach ($products as $index => $product) : ?>
+                        <?php $imageLink = $product['image_path'] ?? '/assets/images/default-product-image.png' ?>
+                        <div class="col-3 border border-1 p-4">
+                            <div>
+                                <div class="product__thumbnail mb-4">
+                                    <img src="<?= $imageLink ?>" alt="<?= $product['product_name']; ?>">
+                                </div>
+                            </div>
+                            <div class="product__info">
+                                <h3 class="product__name"><a
+                                            href="/products/<?= $product['id']; ?>"><?= $product['product_name'] ?></a>
+                                </h3>
+                                <div class="product__price-box"><span
+                                            class="product__price"><?= number_format($product['product_price'], 0, ',', '.') ?> VND</span>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
                 </div>
-                <div class="product-carousel owl-carousel col-12">
-                    <div class="product-list col-12">
-                        <div class="product col-12 row">
-                            <div class="col-5">
-                                <div class="product__thumbnail">
-                                    <img src="assets/images/precision_7510.jpg" alt="dell precision 7510">
-                                </div>
-                            </div>
-                            <div class="product__info col-7">
-                                <h3 class="product__name"><a href="/products/123">Dell Precision 7510</a></h3>
-                                <div class="product__price-box"><span class="product__price">17.900.000 VND</span></div>
-                            </div>
-                        </div>
-                        <div class="product col-12 row">
-                            <div class="col-5">
-                                <div class="product__thumbnail">
-                                    <img src="assets/images/s340_grey.jpg" alt="lenovo ideapad s340 14iil">
-                                </div>
-                            </div>
-                            <div class="product__info col-7">
-                                <h3 class="product__name"><a href="/products/123">Lenovo IdeaPad S340 14IIL</a></h3>
-                                <div class="product__price-box"><span class="product__price">16.290.000 VND</span></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-list col-12">
-                        <div class="product col-12 row">
-                            <div class="col-5">
-                                <div class="product__thumbnail">
-                                    <img src="assets/images/Acer_Aspire_7_A720.png" alt="acer aspire 7 a720">
-                                </div>
-                            </div>
-                            <div class="product__info col-7">
-                                <h3 class="product__name"><a href="/products/123">Acer Aspire 7 A715 42G R4ST</a></h3>
-                                <div class="product__price-box"><span class="product__price">16.999.000 VND</span></div>
-                            </div>
-                        </div>
-                        <div class="product col-12 row">
-                            <div class="col-5">
-                                <div class="product__thumbnail">
-                                    <img src="assets/images/laptop_dell_vostro_3590.png" alt="dell precision 7510">
-                                </div>
-                            </div>
-                            <div class="product__info col-7">
-                                <h3 class="product__name"><a href="/products/123">Laptop Dell Vostro 3590 (GRMGK3)</a></h3>
-                                <div class="product__price-box"><span class="product__price">14.689.000 VND</span></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-list col-12">
-                        <div class="product col-12 row">
-                            <div class="col-5">
-                                <div class="product__thumbnail">
-                                    <img src="assets/images/Acer_Aspire_7_A720.png" alt="acer aspire 7 a720">
-                                </div>
-                            </div>
-                            <div class="product__info col-7">
-                                <h3 class="product__name"><a href="/products/123">Acer Aspire 7 A715 42G R4ST</a></h3>
-                                <div class="product__price-box"><span class="product__price">17.900.000 VND</span></div>
-                            </div>
-                        </div>
-                        <div class="product col-12 row">
-                            <div class="col-5">
-                                <div class="product__thumbnail">
-                                    <img src="assets/images/laptop_dell_vostro_3590.png" alt="dell precision 7510">
-                                </div>
-                            </div>
-                            <div class="product__info col-7">
-                                <h3 class="product__name"><a href="/products/123">Laptop Dell Vostro 3590 (GRMGK3)</a></h3>
-                                <div class="product__price-box"><span class="product__price">14.689.000 VND</span></div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="actions mt-4 text-center">
+                    <a href="#" class="btn btn-primary js-load-more d-inline-block">Load More</a>
                 </div>
             </div>
         </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <h2>New Products</h2>
-                </div>
-                <div class="product-carousel owl-carousel col-12">
-                    <div class="product col-12 row">
-                        <div class="col-5">
-                            <div class="product__thumbnail">
-                                <img src="assets/images/precision_7510.jpg" alt="dell precision 7510">
-                            </div>
-                        </div>
-                        <div class="product__info col-7">
-                            <h3 class="product__name"><a href="/products/123">Dell Precision 7510</a></h3>
-                            <div class="product__price-box"><span class="product__price">17.900.000 VND</span></div>
-                        </div>
-                    </div>
-                    <div class="product col-12 row">
-                        <div class="col-5">
-                            <div class="product__thumbnail">
-                                <img src="assets/images/s340_grey.jpg" alt="lenovo ideapad s340 14iil">
-                            </div>
-                        </div>
-                        <div class="product__info col-7">
-                            <h3 class="product__name"><a href="/products/123">Lenovo IdeaPad S340 14IIL</a></h3>
-                            <div class="product__price-box"><span class="product__price">16.290.000 VND</span></div>
-                        </div>
-                    </div>
-                    <div class="product col-12 row">
-                        <div class="col-5">
-                            <div class="product__thumbnail">
-                                <img src="assets/images/Acer_Aspire_7_A720.png" alt="acer aspire 7 a720">
-                            </div>
-                        </div>
-                        <div class="product__info col-7">
-                            <h3 class="product__name"><a href="/products/123">Acer Aspire 7 A715 42G R4ST</a></h3>
-                            <div class="product__price-box"><span class="product__price">16.999.000 VND</span></div>
-                        </div>
-                    </div>
-                    <div class="product col-12 row">
-                        <div class="col-5">
-                            <div class="product__thumbnail">
-                                <img src="assets/images/laptop_dell_vostro_3590.png" alt="dell precision 7510">
-                            </div>
-                        </div>
-                        <div class="product__info col-7">
-                            <h3 class="product__name"><a href="/products/123">Laptop Dell Vostro 3590 (GRMGK3)</a></h3>
-                            <div class="product__price-box"><span class="product__price">14.689.000 VND</span></div>
-                        </div>
-                    </div>
-                    <div class="product col-12 row">
-                        <div class="col-5">
-                            <div class="product__thumbnail">
-                                <img src="assets/images/Acer_Aspire_7_A720.png" alt="acer aspire 7 a720">
-                            </div>
-                        </div>
-                        <div class="product__info col-7">
-                            <h3 class="product__name"><a href="/products/123">Acer Aspire 7 A715 42G R4ST</a></h3>
-                            <div class="product__price-box"><span class="product__price">17.900.000 VND</span></div>
-                        </div>
-                    </div>
-                    <div class="product col-12 row">
-                        <div class="col-5">
-                            <div class="product__thumbnail">
-                                <img src="assets/images/laptop_dell_vostro_3590.png" alt="dell precision 7510">
-                            </div>
-                        </div>
-                        <div class="product__info col-7">
-                            <h3 class="product__name"><a href="/products/123">Laptop Dell Vostro 3590 (GRMGK3)</a></h3>
-                            <div class="product__price-box"><span class="product__price">14.689.000 VND</span></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    </div>
+</section>
 
     <!-- Footer-->
     <?php include 'layout/footer.php'; ?>
@@ -323,12 +231,14 @@
 
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script type="text/javascript">
-        var frm = $('#getusers');
-        var result;
-        var searchTerm="";
+        let frm = $('#getusers');
+        let result;
+        let searchTerm="";
+        let pageNumber = 2;
+        let pageSize = 12;
         function showResult(data){
-            var result = data;
-            var search = "";
+            let result = data;
+            let search = "";
             console.log(result);
             if (searchTerm=='') search = 'All products';
             else search = '"'+searchTerm+'"';
@@ -338,55 +248,56 @@
                         </div>\
                         <div class="product-carousel owl-carousel col-12">';
 
-                    for(var i = 0; i < result.length; i++){
-                        document.getElementById('records').innerHTML +='<div class="product-list col-12">';
-                        if (i < result.length){
-                            document.getElementById('records').innerHTML +='<div class="product col-12 row">\
+        for (var i = 0; i < result.length; i++) {
+            document.getElementById('records').innerHTML += '<div class="product-list col-12">';
+            if (i < result.length) {
+                document.getElementById('records').innerHTML += '<div class="product col-12 row">\
                                     <div class="col-5">\
                                         <div class="product__thumbnail">\
-                                            <img src="'+result[i]["Image_path"]+'" alt="'+result[i]["product_name"]+'">\
+                                            <img src="' + result[i]["Image_path"] + '" alt="' + result[i]["product_name"] + '">\
                                         </div>\
                                     </div>\
                                     <div class="product__info col-7">\
-                                        <h3 class="product__name"><a href="./product-details.html">'+result[i]["product_name"]+'</a></h3>\
-                                        <div class="product__price-box"><span class="product__price">'+new Intl.NumberFormat().format(result[i]["product_price"])+' VND</span></div>\
+                                        <h3 class="product__name"><a href="./product-details.html">' + result[i]["product_name"] + '</a></h3>\
+                                        <div class="product__price-box"><span class="product__price">' + new Intl.NumberFormat().format(result[i]["product_price"]) + ' VND</span></div>\
                                     </div>\
                                 </div>';
-                        } 
-                        i++;
-                        if (i < result.length){
-                            document.getElementById('records').innerHTML +='<div class="product col-12 row">\
+            }
+            i++;
+            if (i < result.length) {
+                document.getElementById('records').innerHTML += '<div class="product col-12 row">\
                                     <div class="col-5">\
                                         <div class="product__thumbnail">\
-                                            <img src="'+result[i]["Image_path"]+'" alt="'+result[i]["product_name"]+'">\
+                                            <img src="' + result[i]["Image_path"] + '" alt="' + result[i]["product_name"] + '">\
                                         </div>\
                                     </div>\
                                     <div class="product__info col-7">\
-                                        <h3 class="product__name"><a href="./product-details.html">'+result[i]["product_name"]+'</a></h3>\
-                                        <div class="product__price-box"><span class="product__price">'+new Intl.NumberFormat().format(result[i]["product_price"])+' VND</span></div>\
+                                        <h3 class="product__name"><a href="./product-details.html">' + result[i]["product_name"] + '</a></h3>\
+                                        <div class="product__price-box"><span class="product__price">' + new Intl.NumberFormat().format(result[i]["product_price"]) + ' VND</span></div>\
                                     </div>\
                                 </div>';
-                        } 
-                        i++;
-                        if (i < result.length){
-                            document.getElementById('records').innerHTML +='<div class="product col-12 row">\
+            }
+            i++;
+            if (i < result.length) {
+                document.getElementById('records').innerHTML += '<div class="product col-12 row">\
                                     <div class="col-5">\
                                         <div class="product__thumbnail">\
-                                            <img src="'+result[i]["Image_path"]+'" alt="'+result[i]["product_name"]+'">\
+                                            <img src="' + result[i]["Image_path"] + '" alt="' + result[i]["product_name"] + '">\
                                         </div>\
                                     </div>\
                                     <div class="product__info col-7">\
-                                        <h3 class="product__name"><a href="./product-details.html">'+result[i]["product_name"]+'</a></h3>\
-                                        <div class="product__price-box"><span class="product__price">'+new Intl.NumberFormat().format(result[i]["product_price"])+' VND</span></div>\
+                                        <h3 class="product__name"><a href="./product-details.html">' + result[i]["product_name"] + '</a></h3>\
+                                        <div class="product__price-box"><span class="product__price">' + new Intl.NumberFormat().format(result[i]["product_price"]) + ' VND</span></div>\
                                     </div>\
                                 </div>';
-                        } 
-                        document.getElementById('records').innerHTML += '</div>';
-                    }
-                    document.getElementById('records').innerHTML += '</div></div>';
+            }
+            document.getElementById('records').innerHTML += '</div>';
         }
-        function showFilterTable(){
-            document.getElementById('filter').innerHTML='\
+        document.getElementById('records').innerHTML += '</div></div>';
+    }
+
+    function showFilterTable() {
+        document.getElementById('filter').innerHTML = '\
             <div class="form-group" name = "filter-tags-list" id =  "filter-tags-list"></div>\
         <p>\
         <button class="btn btn-success" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">\
@@ -471,8 +382,9 @@
             searchTerm = $('#myInput').val()
             e.preventDefault();  
             $.ajax({
-                type: frm.attr('method'),
-                url: frm.attr('action'),
+                type: 'get',
+                url: '/products/more',
+                data: { pageSize, pageNumber },
                 dataType: 'json',
                 data: frm.serialize(),
                 success: function (data) {
@@ -488,21 +400,69 @@
                 },
             });
         });
-        
-    </script> 
 
-    <!-- Bootstrap core JS-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Third party plugin JS-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-    <script src="assets/js/owl.carousel.min.js"></script>
-    <!-- Contact form JS-->
-    <script src="assets/mail/jqBootstrapValidation.js"></script>
-    <script src="assets/mail/contact_me.js"></script>
-    <!-- Core theme JS-->
-    <script src="assets/js/scripts.js"></script>
-    <script src="assets/js/products.js"></script>
+        $(function () {
+            $('.js-load-more').on('click', function (event) {
+                event.preventDefault();
+                $.ajax({
+                    type: 'get',
+                    url: '/products/more',
+                    data: { pageSize, pageNumber },
+                    dataType: 'json',
+                    success: data => {
+                        console.log(data)
+                        if (!data.loadMore) {
+                            $(this).remove();
+                        }
+
+                        const productTmpl = `
+                    <div class="col-3 border border-1 p-4">
+                        <div>
+                            <div class="product__thumbnail mb-4">
+                                <img src="{productImage}" alt="{productName}">
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="product__name"><a
+                                        href="/products/{productId}">{productName}</a></h3>
+                            <div class="product__price-box"><span
+                                        class="product__price">{productPrice} VND</span>
+                            </div>
+                        </div>
+                    </div>
+                    `;
+
+                        let products = "";
+                        data.products.forEach(product => {
+                            products += productTmpl
+                                .replaceAll("{productImage}", product.image_path || '/assets/images/default-product-image.png')
+                                .replaceAll("{productName}", product.product_name)
+                                .replaceAll("{productPrice}", product.product_price)
+                        })
+
+                        $('.products > .row').append(products)
+                        pageNumber += 1;
+                    },
+                    error: function (data) {
+                        console.log('Error occurred', data);
+                    }
+                })
+            })
+        })
+    </script>
+
+<!-- Bootstrap core JS-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Third party plugin JS-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+<script src="assets/js/owl.carousel.min.js"></script>
+<!-- Contact form JS-->
+<script src="assets/mail/jqBootstrapValidation.js"></script>
+<script src="assets/mail/contact_me.js"></script>
+<!-- Core theme JS-->
+<script src="assets/js/scripts.js"></script>
+<script src="assets/js/products.js"></script>
 </body>
 
 </html>

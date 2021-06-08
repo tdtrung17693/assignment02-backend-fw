@@ -87,7 +87,7 @@ searchMobileTrigger.addEventListener("click", () => {
 
 (($) => {
   $(function () {
-    $(".js-btn-delete").on("click", function (event) {
+    $(".js-btn-product-delete").on("click", function (event) {
       event.preventDefault();
       Swal.fire({
         title: "Are you sure?",
@@ -103,6 +103,36 @@ searchMobileTrigger.addEventListener("click", () => {
         fetch(`/admin/products/${id}`, {
           method: "delete",
         })
+            .then((res) => res.json())
+            .then((ret) => {
+              if (ret.error) {
+                Swal.fire("Failed!", ret.error, "danger");
+              } else {
+                Swal.fire(
+                    "Deleted!",
+                    "Product has been deleted.",
+                    "success"
+                ).then(() => window.location.reload());
+              }
+            });
+      });
+    });
+    $(".js-btn-user-delete").on("click", function (event) {
+      event.preventDefault();
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      }).then((result) => {
+        if (!result.isConfirmed) return;
+        const id = $(this).data("id");
+        fetch(`/admin/users/${id}`, {
+          method: "delete",
+        })
           .then((res) => res.json())
           .then((ret) => {
             if (ret.error) {
@@ -110,7 +140,7 @@ searchMobileTrigger.addEventListener("click", () => {
             } else {
               Swal.fire(
                 "Deleted!",
-                "Product has been deleted.",
+                "User has been deleted.",
                 "success"
               ).then(() => window.location.reload());
             }

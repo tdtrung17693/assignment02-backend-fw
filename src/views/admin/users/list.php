@@ -53,7 +53,7 @@
                             <td class="cell"><?= $user['lname'] ?></td>
                             <td class="cell">
                                 <a class="btn-sm app-btn-secondary" href="/admin/users/<?= $user['id'] ?>">View</a>
-                                <a class="btn-sm btn-danger text-white js-btn-delete" href="#" data-id="<?= $user['id']?>">Delete</a>
+                                <a class="btn-sm btn-danger text-white js-btn-user-delete" href="#" data-id="<?= $user['id']?>">Delete</a>
                             </td>
                         </tr>
                         <?php endforeach; ?>

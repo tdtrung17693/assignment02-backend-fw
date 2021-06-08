@@ -3,8 +3,8 @@
     <div class="container">
         <a class="navbar-brand js-scroll-trigger" href="#page-top"><img src="/assets/images/company.png" alt=""></a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-            data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
-            aria-label="Toggle navigation">
+                data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+                aria-label="Toggle navigation">
             Menu
             <i class="fas fa-bars ml-1"></i>
         </button>
@@ -20,29 +20,30 @@
                 <!-- <li class="nav-item"><a class="nav-link " href="/login1">Login</a></li> -->
                 <li class="dropdown order-1">
                     <button type="button" id="dropdownMenu1" data-toggle="dropdown"
-                        class="btn btn-outline-secondary dropdown-toggle text-white"><i
+                            class="btn btn-outline-secondary dropdown-toggle text-white"><i
                                 class="fa fa-cog fa-fw fa-lg"></i> <span
-                            class="caret"></span></button>
+                                class="caret"></span></button>
 
                     <div class="dropdown-menu">
-                    <?php if (!isset($_SESSION['username'])){?>  
+                        <?php if (!isset($_SESSION['username'])) : ?>
+                            <a class="dropdown-item text-center" href="/login1">Login</a>
+                            <a class="dropdown-item text-center" href="/register">Register</a>
+                        <?php endif ?>
 
-                        <a class="dropdown-item text-center" href="/login1">Login</a>
-                        <a class="dropdown-item text-center" href="/register">Register</a>
-                        <?php }?>
-
-                        <?php if (isset($_SESSION['username'])){?>  
-                            <a class="dropdown-item  text-center text-lowercase" href="/info">User:   
+                        <?php if (isset($_SESSION['username'])) :?>
+                            <a class="dropdown-item  text-center text-lowercase" href="/info">User:
                              <?php echo $_SESSION['username']?> </a>
                             <!-- <a class="dropdown-item  text-center" href="">My Account</a> -->
+                            <?php if (isset($_SESSION['is_admin']) && $_SESSION['is_admin']) : ?>
+                                <a class="dropdown-item text-center" href="/admin">Admin Dashboard</a>
+                            <?php endif ?>
 
                             <a class="dropdown-item text-center  text-lowercase" href="/logout">Logout</a>
 
-
-                         <?php }?>
+                        <?php endif ?>
 
                     </div>
-                    
+
                     <!-- <ul class="dropdown-menu dropdown-menu-right mt-2">
                             <div class="form-group1">
                                 <a class="nav-link text-black-50" href="/login1">Login</a>

@@ -49,7 +49,7 @@
                             <td class="cell"><?= number_format($product['product_price'], 0, ',', '.') ?></td>
                             <td class="cell">
                                 <a class="btn-sm app-btn-secondary" href="/admin/products/<?= $product['id'] ?>">View</a>
-                                <a class="btn-sm btn-danger text-white js-btn-delete" href="#" data-id="<?= $product['id']?>">Delete</a>
+                                <a class="btn-sm btn-danger text-white js-btn-product-delete" href="#" data-id="<?= $product['id']?>">Delete</a>
                             </td>
                         </tr>
                         <?php endforeach; ?>

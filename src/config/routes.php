@@ -16,9 +16,10 @@ use Controllers\Admin\UsersController as AdminUsersController;
 
 $router->get('/', HomeController::class, 'index');
 $router->get('/products', ProductsController::class, 'index');
+$router->get('/products/more', ProductsController::class, 'loadMore');
 $router->post('/products/search', ProductsController::class, 'search');
 $router->get('/products/:id', ProductsController::class, 'show');
-$router->post('/products/comment', ProductsController::class, 'postComment');
+$router->post('/products/:id/comment', ProductsController::class, 'postComment');
 $router->get('/services', ServicesController::class, 'index');
 $router->get('/about-us', HomeController::class, 'aboutUs');
 $router->get('/news', NewsController::class, 'index');
@@ -43,10 +44,6 @@ $router->post('/checkChangePass', AuthController::class, 'checkChangePass');
 $router->post('/doChangePass', AuthController::class, 'doChangePass');
 $router->post('/doChangeInfo', AuthController::class, 'doChangeInfo');
 
-
-
-
-
 // Uncomment when needing guard
 //$router->get('/admin', AdminController::class, 'index')->middleware(AuthMiddleware::class);
 $router->get('/admin', AdminController::class, 'index');
@@ -62,6 +59,7 @@ $router->delete('/admin/products/:id/images/:imgId', AdminProductsController::cl
 // Admin Users
 $router->get('/admin/users', AdminUsersController::class, 'index');
 $router->get('/admin/users/:id', AdminUsersController::class, 'show');
+$router->delete('/admin/users/:id', AdminUsersController::class, 'delete');
 
 $router->get('/404', ErrorController::class, 'error_404');
 $router->get('/403', ErrorController::class, 'error_403');

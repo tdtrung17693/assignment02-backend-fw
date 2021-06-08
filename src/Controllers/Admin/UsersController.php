@@ -55,7 +55,7 @@ class UsersController extends BaseController
         ];
 
         return $this->view('admin.users.list', [
-            'title' => 'Products',
+            'title' => 'Users',
             'users' => $users,
             'pagination' => $pagination,
             'searchTerm' => $searchTerm

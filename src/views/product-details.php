@@ -26,6 +26,7 @@
     <link href="/assets/css/home.css" rel="stylesheet" />
     <link href="/assets/css/login-dialog.css" rel="stylesheet" />
 
+    <link href="/assets/css/login-dialog.css" rel="stylesheet" />
 </head>
 
 

@@ -92,7 +92,6 @@
                             <span id="availemail"> </span>
                         </div>
                     </div>
-
                 </div>
                 <div class="group row">
                     <label for="username" class="col-3 col-form-label text-black-50">Username:</label>
@@ -103,7 +102,6 @@
                             <span id="availname"> </span>
                         </div>
                     </div>
-
                 </div>
 
 
@@ -112,7 +110,7 @@
                     <label class="col-3 col-form-label text-black-50">Birthday:</label>
                     <div class="col-9 d-flex">
                         <input type="text" class="form-control col-9" id="bdate" name="bdate"
-                            onfocus="this.placeholder=''" value="<?php echo $_SESSION['bdate']; ?> " disabled required>
+                            onfocus="this.placeholder=''" value="<?php echo $_SESSION['bdate']; ?>" disabled required>
 
                     </div>
                 </div>
@@ -127,14 +125,13 @@
                 <div class="group row pw d-none">
                     <label for="password" class="col-3 col-form-label text-black-50">Password:</label>
                     <div class="col-9">
-                        <input type="password" class="form-control col-9" name="password" id="password"
+                        <input type="password" class="form-control col-9" name="password" id="password1"
                             onfocus="this.placeholder=''" 
                             placeholder="Enter Password ..." required>
                         <div class="text-left">
                             <span id="availpass"> </span>
                         </div>
                     </div>
-
                 </div>
                 <div class="row">
                     <div class="col-12 text-center">
@@ -170,7 +167,6 @@
                     </div>
                 </div>
                 <br>
-
             </form>
         </div>
     </header>

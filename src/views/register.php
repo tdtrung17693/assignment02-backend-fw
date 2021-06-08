@@ -66,7 +66,6 @@
                             <span id="availlname"> </span>
                         </div>
                     </div>
-
                 </div>
 
                 <div class="group row">

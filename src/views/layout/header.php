@@ -40,20 +40,7 @@
 
 
                          <?php }?>
-
                     </div>
-                    
-                    <!-- <ul class="dropdown-menu dropdown-menu-right mt-2">
-                            <div class="form-group1">
-                                <a class="nav-link text-black-50" href="/login1">Login</a>
-                            </div>
-
-                            <div class="form-group1">
-                                <a class="nav-link text-black-50" href="/register">Register</a>
-                            </div> -->
-
-
-                    <!-- </ul> -->
                 </li>
 
             </ul>

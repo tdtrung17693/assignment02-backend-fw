@@ -22,38 +22,25 @@
 </head>
 
 <body id="page-top">
-    <!-- Navigation-->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-        <div class="container">
-            <a class="navbar-brand js-scroll-trigger" href="#page-top"><img src="assets/images/company.png" alt=""></a>
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    Menu
-                    <i class="fas fa-bars ml-1"></i>
-                </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav text-uppercase ml-auto">
-                    <li class="nav-item"><a class="nav-link " href="/">Homepage</a></li>
-                    <li class="nav-item"><a class="nav-link " href="/products">Products</a></li>
-                    <li class="nav-item"><a class="nav-link " href="/services">Services</a></li>
-                    <li class="nav-item"><a class="nav-link " href="/about-us">About us</a></li>
-                    <li class="nav-item"><a class="nav-link " href="/news">News</a></li>
-                    <li class="nav-item"><a class="nav-link " href="/contact">Contact</a></li>
-                    <li class="nav-item"><a class="nav-link " href="/careers">Careers</a></li>
-                    <form class="form-inline" id="getusers" action="/products/search" method="post">
-                        <input id="myInput" name ="myInput" class="form-control mr-sm-2" type="search" placeholder="Search Products" aria-label="Search">
-                        <button id="MyBtn" class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                    </form>
-                </ul>
-            </div>
-        </div>
-    </nav>
+<?php include 'layout/header.php'; ?>
+
     <!-- Masthead-->
     <header class="masthead">
         <div class="container">
             <h2 class="section-heading text-uppercase">Products</h2>
         </div>
     </header>
-
+    <br><br>
+    <div class="container">
+    
+    <form class="form" id="getusers" action="/products/search" method="post">
+    <div class="input-group input-group-lg mb-3">
+        <input id="myInput" name ="myInput" class="form-control mr-sm-2" type="search" placeholder="Search Products" aria-label="Search">
+        <button id="MyBtn" class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
+    </div>
+    
+    </form>
+    </div>
 
    
     <div class="container" id = "filter">
@@ -330,22 +317,8 @@
     </section>
 
     <!-- Footer-->
-    <footer class="footer py-4">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-4 text-lg-left">Copyright © Andy Company</div>
-                <div class="col-lg-4 my-3 my-lg-0">
-                    <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-twitter"></i></a>
-                    <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
-                    <a class="btn btn-dark btn-social mx-2" href="#!"><i class="fab fa-linkedin-in"></i></a>
-                </div>
-                <div class="col-lg-4 text-lg-right">
-                    <a class="mr-3" href="#!">Privacy Policy</a>
-                    <a href="#!">Terms of Use</a>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <?php include 'layout/footer.php'; ?>
+
 
 
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
@@ -355,10 +328,13 @@
         var searchTerm="";
         function showResult(data){
             var result = data;
+            var search = "";
             console.log(result);
+            if (searchTerm=='') search = 'All products';
+            else search = '"'+searchTerm+'"';
             document.getElementById('records').innerHTML =' <div class="row">\
                         <div class="col-12">\
-                            <h2>Search results for "'+searchTerm+'"</h2>\
+                            <h2>Search results for '+search+'</h2>\
                         </div>\
                         <div class="product-carousel owl-carousel col-12">';
 
@@ -413,7 +389,7 @@
             document.getElementById('filter').innerHTML='\
             <div class="form-group" name = "filter-tags-list" id =  "filter-tags-list"></div>\
         <p>\
-        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">\
+        <button class="btn btn-success" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">\
             Filter List\
         </button>\
         </p>\
@@ -430,6 +406,7 @@
                                     <a class="dropdown-item" onclick="filter(\'Brand-Asus\')">Asus</a>\
                                     <a class="dropdown-item" onclick="filter(\'Brand-Lenovo\')">HP</a>\
                                     <a class="dropdown-item" onclick="filter(\'Brand-Acer\')">Acer</a>\
+                                    <a class="dropdown-item" onclick="filter(\'Brand-Lenovo\')">Lenovo</a>\
                                 </div>\
                             </div>\
                         </div>\
@@ -490,7 +467,7 @@
             </div>\
         </div>';
         }
-            
+        frm.submit(function (e) {
             searchTerm = $('#myInput').val()
             e.preventDefault();  
             $.ajax({
@@ -499,7 +476,6 @@
                 dataType: 'json',
                 data: frm.serialize(),
                 success: function (data) {
-
                     console.log('Submission was successful.');
                     result = data;
                     console.log(data);
@@ -511,7 +487,7 @@
                     console.log(data);
                 },
             });
-    
+        });
         
     </script> 
 

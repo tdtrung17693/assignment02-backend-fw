@@ -225,7 +225,7 @@
     <script src="/assets/mail/jqBootstrapValidation.js"></script>
     <script src="/assets/mail/contact_me.js"></script>
     <!-- Core theme JS-->
-    <script src="js/scripts.js"></script>
+    <script src="/assets/js/scripts.js"></script>
 </body>
 
 </html>

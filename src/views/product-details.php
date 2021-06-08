@@ -21,11 +21,15 @@
     <!-- Core theme CSS (includes Bootstrap)-->
     <link rel="stylesheet" href="/assets/css/owl.carousel.min.css" />
     <link rel="stylesheet" href="/assets/css/owl.theme.default.min.css" />
-    <link href="/assets/css/home.css" rel="stylesheet" />
     <link rel="stylesheet" href="/assets/css/xzoom.css" />
     <link href="/assets/css/product-details.css" rel="stylesheet" />
+    <link href="/assets/css/home.css" rel="stylesheet" />
+    <link href="/assets/css/login-dialog.css" rel="stylesheet" />
+
     <link href="/assets/css/login-dialog.css" rel="stylesheet" />
 </head>
+
+
 
 <body id="page-top">
     <?php include 'layout/header.php'; ?>
@@ -524,10 +528,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Third party plugin JS-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
+    <script src="/assets/js/owl.carousel.min.js"></script>
     <!-- Contact form JS-->
-    <script src="assets/mail/jqBootstrapValidation.js"></script>
-    <script src="assets/mail/contact_me.js"></script>
+    <script src="/assets/mail/jqBootstrapValidation.js"></script>
+    <script src="/assets/mail/contact_me.js"></script>
     <!-- Core theme JS-->
     <script src="js/scripts.js"></script>
     <script src="js/xzoom.min.js"></script>

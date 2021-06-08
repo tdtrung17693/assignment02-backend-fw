@@ -33,8 +33,15 @@ $router->post('/checkRegister', AuthController::class, 'checkRegister');
 $router->post('/sendRegister', AuthController::class, 'sendRegister');
 $router->post('/doLogin', AuthController::class, 'doLogin');
 $router->get('/logout', AuthController::class, 'logout');
-$router->post('/login', AuthController::class, 'doLogin');
+// $router->post('/login', AuthController::class, 'doLogin');
 $router->post('/checkForgotpw', AuthController::class, 'checkForgotpw');
+$router->get('/info', AuthController::class, 'userInfo');
+$router->get('/changePass', AuthController::class, 'changePassView');
+
+$router->post('/checkChangePass', AuthController::class, 'checkChangePass');
+
+$router->post('/doChangePass', AuthController::class, 'doChangePass');
+$router->post('/doChangeInfo', AuthController::class, 'doChangeInfo');
 
 
 

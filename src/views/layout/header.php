@@ -1,7 +1,7 @@
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
     <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="#page-top"><img src="assets/images/company.png" alt=""></a>
+        <a class="navbar-brand js-scroll-trigger" href="#page-top"><img src="/assets/images/company.png" alt=""></a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
             data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
             aria-label="Toggle navigation">
@@ -32,9 +32,11 @@
                         <?php }?>
 
                         <?php if (isset($_SESSION['username'])){?>  
-                            <a class="dropdown-item  text-center" href="">My Account</a>
+                            <a class="dropdown-item  text-center text-lowercase" href="/info">User:   
+                             <?php echo $_SESSION['username']?> </a>
+                            <!-- <a class="dropdown-item  text-center" href="">My Account</a> -->
 
-                            <a class="dropdown-item text-center" href="/logout">Logout</a>
+                            <a class="dropdown-item text-center  text-lowercase" href="/logout">Logout</a>
 
 
                          <?php }?>
